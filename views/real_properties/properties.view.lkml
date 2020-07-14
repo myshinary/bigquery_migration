@@ -8,6 +8,7 @@ view: properties {
     primary_key: yes
     type: number
     sql: ${TABLE}.id ;;
+    hidden: yes
   }
 
   dimension: city {
@@ -28,16 +29,19 @@ view: properties {
       year
     ]
     sql: CAST(${TABLE}.created_at AS TIMESTAMP) ;;
+    hidden: yes
   }
 
   dimension: lat {
     type: string
-    sql: ${TABLE}.lat ;;
+    sql: CAST(${TABLE}.lat AS NUMERIC);;
+    hidden: yes
   }
 
   dimension: legal_name {
     type: string
     sql: ${TABLE}.legal_name ;;
+    hidden: yes
   }
 
   dimension: line_1 {
@@ -50,11 +54,13 @@ view: properties {
     type: string
     sql: ${TABLE}.line_2 ;;
     group_label: "Address"
+    hidden: yes
   }
 
   dimension: long {
     type: string
-    sql: ${TABLE}.long ;;
+    sql: CAST(${TABLE}.long AS NUMERIC);;
+    hidden: yes
   }
 
   dimension: geo_location {
@@ -82,6 +88,7 @@ view: properties {
 
   dimension: postcode {
     type: string
+    label: "Zip"
     sql: ${TABLE}.postcode ;;
     group_label: "Address"
   }
@@ -94,11 +101,18 @@ view: properties {
   dimension: revision {
     type: number
     sql: ${TABLE}.revision ;;
+    hidden: yes
   }
 
   dimension: state {
     type: string
     sql: ${TABLE}.state ;;
+    group_label: "Address"
+  }
+
+  dimension: full_address {
+    type: string
+    sql: ${line_1}||' '||${city}||', '||${state}||' '||${postcode};;
     group_label: "Address"
   }
 
@@ -114,10 +128,11 @@ view: properties {
       year
     ]
     sql: CAST(${TABLE}.updated_at AS TIMESTAMP) ;;
+    hidden: yes
   }
 
   measure: count {
     type: count
-    drill_fields: [id, name, legal_name]
+    #drill_fields: [id, name, legal_name]
   }
 }
