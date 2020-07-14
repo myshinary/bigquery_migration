@@ -131,6 +131,13 @@ view: properties {
     hidden: yes
   }
 
+  dimension: is_happyco_customer {
+    label: "HappyCo Customer?"
+    type: yesno
+    sql: CASE WHEN ${orders.product_environment_id} IS NULL THEN FALSE ELSE TRUE END ;;
+  }
+
+
   measure: count {
     type: count
     #drill_fields: [id, name, legal_name]
