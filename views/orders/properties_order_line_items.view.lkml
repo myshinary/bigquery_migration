@@ -1,7 +1,7 @@
 view: properties_order_line_items {
   sql_table_name: `happyco-internal-systems.hub__orders.properties_order_line_items`
     ;;
-  view_label: "HappyCo Customer"
+  view_label: "HappyCo"
   drill_fields: [id]
 
   dimension: id {

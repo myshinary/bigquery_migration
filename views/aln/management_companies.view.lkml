@@ -46,6 +46,12 @@ view: management_companies {
     hidden: yes
   }
 
+  dimension: in_house_maintenance {
+    type: yesno
+    sql:  CASE WHEN ${in_house_maintenance.id} IS NULL THEN FALSE ELSE TRUE END;;
+    description: "Does the ALN-listed Company have any 'Maintenance' employees?"
+  }
+
   #measure: count {
   #  type: count
   #  drill_fields: [

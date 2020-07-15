@@ -197,7 +197,7 @@ view: orders {
     sql: ${property_order_link_html} ;;
     html: <a href="{{ value }}" target="_blank">{{ properties_order_id }} <img src="https://storage.googleapis.com/happyco-downloadable-assets/bi/public/external-link.png" style=" width: 8px; height: 8px; display: inline-block;" /></a> ;;
     label: "HUB Property Order Link"
-    view_label: "HappyCo Customer"
+    view_label: "HappyCo"
     group_label: "HUB Links"
   }
 
@@ -210,7 +210,7 @@ view: orders {
     label: "HUB Provisioning Plan Link"
     sql: ${provisioning_plan_link_html} ;;
     html: <a href="{{ value }}" target="_blank">{{ plan_id }} <img src="https://storage.googleapis.com/happyco-downloadable-assets/bi/public/external-link.png" style=" width: 8px; height: 8px; display: inline-block;" /></a> ;;
-    view_label: "HappyCo Customer"
+    view_label: "HappyCo"
     group_label: "HUB Links"
   }
 
@@ -247,7 +247,7 @@ view: orders {
   measure: units_ordered {
     type: sum
     sql: ${unit_quantity} ;;
-    view_label: "HappyCo Customer"
+    view_label: "HappyCo"
     group_label: "Revenue"
   }
 

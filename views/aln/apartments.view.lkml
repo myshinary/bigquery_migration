@@ -49,6 +49,25 @@ view: apartments {
   dimension: average_rent {
     type: number
     sql: ${TABLE}.average_rent ;;
+    value_format: "$0.00"
+  }
+
+  dimension: average_rent_rounded {
+    type: number
+    sql: ROUND(${average_rent},-2) ;;
+    description: "ALN Apartment Average Rent rounded to the nearest $100"
+    value_format: "$0.00"
+  }
+
+  measure: avg_rent {
+    type: average
+    sql: ${average_rent} ;;
+    value_format: "$0.00"
+  }
+
+  dimension: avg_rent_tier {
+    type: string
+    sql: CASE WHEN ${average_rent} < 900 THEN '1. <$900' WHEN ${average_rent} BETWEEN 900 AND 1100 THEN '2. $900-$1100' WHEN ${average_rent} BETWEEN 1101 AND 1300 THEN '3. $1101-$1300' WHEN ${average_rent} BETWEEN 1301 AND 1500 THEN '4. $1301-$1500' WHEN ${average_rent} BETWEEN 1501 AND 1700 THEN '5. $1501-1700' WHEN ${average_rent} BETWEEN 1701 AND 2000 THEN '6. $1701-$2000' WHEN ${average_rent} BETWEEN 2001 AND 2500 THEN '7. $2001-$2500' WHEN ${average_rent} > 2500 THEN '8. >$2500' ELSE NULL END;;
   }
 
   dimension: average_sq_ft {

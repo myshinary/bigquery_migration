@@ -1,7 +1,7 @@
 view: customers {
   sql_table_name: `happyco-internal-systems.bi.customers`
     ;;
-    view_label: "HappyCo Customer"
+    view_label: "HappyCo"
   drill_fields: [id]
 
   dimension: id {

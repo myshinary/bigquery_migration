@@ -137,6 +137,13 @@ view: properties {
     sql: CASE WHEN ${orders.product_environment_id} IS NULL THEN FALSE ELSE TRUE END ;;
   }
 
+  dimension: exists_in_aln {
+    label: "Exists in ALN?"
+    type: yesno
+    sql: CASE WHEN ${aln_mappings.aln_apartment_id} IS NULL THEN FALSE ELSE TRUE END ;;
+    hidden: yes
+    #hidden until we bring in properties to the Real Properties Domain that don't exist in ALN (but do in HappyCo)
+  }
 
   measure: count {
     type: count

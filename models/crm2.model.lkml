@@ -86,6 +86,12 @@ explore: segmentation {
     relationship: one_to_one
     type: left_outer
   }
+
+  join: in_house_maintenance {
+    sql_on: ${management_companies.id} = ${in_house_maintenance.id} ;;
+    relationship: one_to_one
+    type: left_outer
+  }
 }
 
 explore: hub_customers {
