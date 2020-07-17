@@ -26,6 +26,13 @@ explore: mrr {
     relationship: many_to_one
     type: left_outer
   }
+
+  join: mrr_segment {
+    sql_on: ${daily_mrr_by_customer_product.parent_id} = ${mrr_segment.parent_id} ;;
+    relationship: many_to_one
+    type: left_outer
+  }
+
 }
 
 explore: transactions {

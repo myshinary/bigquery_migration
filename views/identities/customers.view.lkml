@@ -57,6 +57,17 @@ view: customers {
   dimension: saasoptics_id {
     type: number
     sql: ${TABLE}.saasoptics_id ;;
+    hidden: yes
+  }
+
+  dimension: saasoptics_url {
+    sql: CONCAT('https://h12.saasoptics.com/qbov9_happyco/so/customers/',(CAST(${saasoptics_id} AS STRING)),'/') ;;
+    hidden: yes
+  }
+
+  dimension: saasoptics_link {
+    sql: ${saasoptics_url} ;;
+    html: <a href="{{ value }}" target="_blank">{{ saasoptics_id }} <img src="https://storage.googleapis.com/happyco-downloadable-assets/bi/public/external-link.png" style=" width: 8px; height: 8px; display: inline-block;" /></a> ;;
   }
 
   dimension: salesforce_id {
@@ -68,4 +79,10 @@ view: customers {
     type: count
     drill_fields: [id, name]
   }
+
+  measure: count_parent {
+    type: count_distinct
+    sql: ${parent_id} ;;
+    hidden: yes
+    }
 }

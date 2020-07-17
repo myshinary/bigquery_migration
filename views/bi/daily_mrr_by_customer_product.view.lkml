@@ -132,6 +132,7 @@ view: daily_mrr_by_customer_product {
   measure: fx_adjustment {
     type: sum
     sql: ${fx_adjustment_dimension} ;;
+    hidden: yes
   }
 
   measure: fx_adjustment_change {
@@ -139,6 +140,7 @@ view: daily_mrr_by_customer_product {
     sql: ${fx_adjustment_change_dimension} ;;
     value_format: "$#,##0;($#,##0)"
     group_label: "MRR Change"
+    hidden: yes
   }
 
   measure: parent_lost {
