@@ -92,6 +92,12 @@ explore: segmentation {
     relationship: one_to_one
     type: left_outer
   }
+
+  join: price_per_unit_by_propery {
+    sql_on: (${properties.id} = ${price_per_unit_by_propery.id}) ;;
+    relationship: one_to_one
+    type: left_outer
+  }
 }
 
 explore: hub_customers {

@@ -35,15 +35,17 @@ view: properties_order_line_items {
     type: number
     sql: ${mrr_dimension}/${unit_count};;
     hidden: no
-    #value_format: "$#,##0;($#,##0)"
     group_label: "Revenue"
   }
 
   measure: price_per_unit {
+    label: "Product Price per Unit"
     type: average
     sql: ${price_per_unit_dimension} ;;
     value_format: "$0.00;($0.00)"
     group_label: "Revenue"
+    description: "Price per Unit split by Product. General rule is to use this any time Product is added to the Look."
+    hidden: no
   }
 
   dimension_group: canceled {
