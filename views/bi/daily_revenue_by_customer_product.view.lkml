@@ -2,9 +2,17 @@ view: daily_revenue_by_customer_product {
   sql_table_name: `bi.daily_revenue_by_customer_product`
     ;;
 
-  dimension: amount {
+  dimension: amount_dimension {
     type: number
     sql: ${TABLE}.amount ;;
+    hidden: yes
+  }
+
+  measure: amount {
+    type: sum
+    sql: ${amount_dimension} ;;
+    value_format: "$#,##0;($#,##0)"
+    #drill_fields: [amount_drill*]
   }
 
   dimension: customer_id {

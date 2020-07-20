@@ -351,6 +351,7 @@ view: apartments {
   }
 
   measure: count {
+    label: "Property Count"
     type: count
     drill_fields: [id, previous_name, property_name]
   }
