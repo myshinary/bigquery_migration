@@ -25,8 +25,12 @@ view: daily_revenue_by_customer_product {
     timeframes: [
       raw,
       date,
+      day_of_week,
       week,
+      week_of_year,
       month,
+      month_name,
+      month_num,
       quarter,
       year
     ]

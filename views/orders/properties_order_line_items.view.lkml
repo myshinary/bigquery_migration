@@ -13,8 +13,21 @@ view: properties_order_line_items {
 
   dimension: mrr_dimension {
     type: number
-    sql: ${TABLE}.amount_cents/1200 ;;
+    sql: CASE WHEN ${is_recurring} IS TRUE THEN ${TABLE}.amount_cents/1200  ELSE NULL END;;
     hidden: yes
+  }
+
+  dimension: transactional_amount_dimension {
+    type: number
+    sql: CASE WHEN ${is_recurring} IS FALSE THEN ${TABLE}.amount_cents/100  ELSE NULL END;;
+    hidden: yes
+  }
+
+  measure: transactional_amount {
+    type: sum
+    sql: ${transactional_amount_dimension} ;;
+    value_format: "$#,##0;($#,##0)"
+    group_label: "Revenue"
   }
 
   measure: mrr {
@@ -34,7 +47,7 @@ view: properties_order_line_items {
   dimension:price_per_unit_dimension {
     type: number
     sql: ${mrr_dimension}/${unit_count};;
-    hidden: no
+    hidden: yes
     group_label: "Revenue"
   }
 
@@ -93,8 +106,13 @@ view: properties_order_line_items {
 
   dimension: product_type {
     type: string
-    sql: ${TABLE}.product_type ;;
-    group_label: "Revenue"
+    hidden: yes
+    sql:${TABLE}.product_type;;
+  }
+
+  dimension: product {
+    type: string
+    sql:CASE WHEN ${product_type} = 'happy_inspector' THEN 'Inspector' WHEN ${product_type} = 'happy_tasks' THEN 'Tasks' WHEN ${product_type} = 'happy_insights' THEN 'Insights' WHEN ${product_type} = 'property_provisioning_fees' THEN 'Property Provisioning Fees' ELSE REPLACE(${product_type},'_',' ') END;;
   }
 
   dimension: properties_contract_terms_revision_id {
