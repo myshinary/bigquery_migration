@@ -93,8 +93,8 @@ explore: segmentation {
     type: left_outer
   }
 
-  join: price_per_unit_by_propery {
-    sql_on: (${product_environments.id} = ${price_per_unit_by_propery.product_environment_id}) ;;
+  join: price_per_unit_by_property {
+    sql_on: (${properties.id} = ${price_per_unit_by_property.id}) ;;
     relationship: one_to_one
     type: left_outer
   }
