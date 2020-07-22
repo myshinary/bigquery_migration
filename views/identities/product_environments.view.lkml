@@ -74,7 +74,7 @@ view: product_environments {
     hidden: yes
   }
 
-  dimension: hub_property_order_link {
+  dimension: happy_business_link {
     sql: ${happy_business_link_html} ;;
     html: <a href="{{ value }}" target="_blank">{{ happy_business_id }} <img src="https://storage.googleapis.com/happyco-downloadable-assets/bi/public/external-link.png" style=" width: 8px; height: 8px; display: inline-block;" /></a> ;;
     label: "HappyCo Admin Link"

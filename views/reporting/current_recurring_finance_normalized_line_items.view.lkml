@@ -7,7 +7,7 @@ view: current_recurring_finance_normalized_line_items {
     AND is_so_item_recurring;;
   }
 
-  #view_label: ""
+  view_label: "HUB"
   drill_fields: [id]
 
   dimension: id {
@@ -140,6 +140,7 @@ view: current_recurring_finance_normalized_line_items {
     sql: ${mrr_dimension} ;;
     label: "MRR"
     value_format: "$#,##0;($#,##0)"
+    group_label: "Finances"
   }
 
   dimension: months {
@@ -218,6 +219,7 @@ view: current_recurring_finance_normalized_line_items {
     label: "Product"
     type: string
     sql: ${TABLE}.product_group_name ;;
+    group_label: "Finances"
 
   }
 

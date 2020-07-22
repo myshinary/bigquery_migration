@@ -2,19 +2,22 @@ view: customer_tags {
   sql_table_name: `happyco-internal-systems.hub__reporting.customer_tags`
     ;;
   drill_fields: [id]
+  view_label: "HUB"
 
   dimension: id {
     primary_key: yes
     type: number
     sql: ${TABLE}.id ;;
+    hidden: yes
   }
 
   dimension: customer_id {
     type: number
     sql: ${TABLE}.customer_id ;;
+    hidden: yes
   }
 
-  dimension_group: last_used {
+  dimension_group: tag_most_recent {
     type: time
     timeframes: [
       raw,
@@ -34,7 +37,8 @@ view: customer_tags {
   }
 
   measure: count {
+    label: "Tags"
     type: count
-    drill_fields: [id]
+    #drill_fields: [id]
   }
 }

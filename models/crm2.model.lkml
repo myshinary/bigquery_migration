@@ -106,6 +106,7 @@ explore: hub_customers {
   label: "HUB Customers"
   persist_for: "24 hour"
   description: "Which customers have what product(s), how much do they pay, who's assigned to their account(s), and what have they been tagged with"
+  fields: [ALL_FIELDS*, -customers.hub_customer_link]
 
   #sql_always_where: ${aln.apartments.status_id} != 15
   #  ;;
@@ -115,4 +116,35 @@ explore: hub_customers {
     relationship: one_to_many
     type: left_outer
   }
+
+  join: customer_owners {
+    sql_on: ${customers.id} = ${customer_owners.customer_id};;
+    relationship: one_to_many
+    type: left_outer
+  }
+
+  join: customer_tags {
+    sql_on: ${customers.id} = ${customer_tags.customer_id};;
+    relationship: one_to_many
+    type: left_outer
+  }
+
+  join: property_provisioning_active_counts {
+    sql_on: ${customers.id} = ${property_provisioning_active_counts.customer_id};;
+    relationship: one_to_many
+    type: left_outer
+  }
+
+  join: product_environments {
+    sql_on: ${property_provisioning_active_counts.product_environment_id} = ${product_environments.id} ;;
+    relationship: one_to_one
+    type: left_outer
+  }
+
+  join: product_environment_feature_flags_and_status {
+    sql_on: ${product_environments.id} = ${product_environment_feature_flags_and_status.product_environment_id} ;;
+    relationship: one_to_one
+    type: left_outer
+  }
+
 }
