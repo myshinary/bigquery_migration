@@ -2,9 +2,9 @@ view: price_per_unit_by_property {
   derived_table: {
     sql:
 
-      SELECT id, SUM(mrr)/AVG(unit_quantity) AS price_per_unit
+      SELECT id, SUM(price_per_unit) as price_per_unit
         FROM
-        (SELECT id, product_type, AVG(mrr) as mrr, SUM(unit_quantity) as unit_quantity
+        (SELECT id, product_type, SUM(mrr)/SUM(DISTINCT unit_quantity) as price_per_unit
         FROM
         (SELECT properties.id, properties_order_line_items.product_type, properties_order_line_items.amount_cents/1200 as mrr, CASE WHEN unit_type.unit_type = 'bed' THEN apartments.number_of_units ELSE orders.unit_quantity END as unit_quantity
         FROM ${properties.SQL_TABLE_NAME} properties
@@ -21,7 +21,8 @@ view: price_per_unit_by_property {
         WHERE properties_order_line_items.is_recurring IS TRUE
         AND orders.deactivated_at IS NULL) x1
         GROUP BY 1,2) x2
-        GROUP BY 1;;
+        GROUP BY 1
+        ;;
     #persist_for: "24 hours"
     #indexes: ["transaction_number","invoice_number"]
     }
