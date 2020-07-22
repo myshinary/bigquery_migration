@@ -40,7 +40,7 @@ view: properties_order_line_items {
 
   dimension: unit_count {
     type: number
-    sql: CASE WHEN ${properties_billed_on_unit_type.unit_type} = 'bed' THEN ${apartments.number_of_units} ELSE ${orders.unit_quantity} END;;
+    sql: CASE WHEN ${property_provisioning_plans.unit_type} = 'bed' THEN ${apartments.number_of_units} ELSE ${orders.unit_quantity} END;;
     hidden: yes
   }
 

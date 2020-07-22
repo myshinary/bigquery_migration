@@ -16,8 +16,8 @@ view: price_per_unit_by_property {
         ON properties.id = orders.real_property_id
         LEFT JOIN ${properties_order_line_items.SQL_TABLE_NAME} as properties_order_line_items
         ON orders.properties_order_id = properties_order_line_items.properties_order_id
-        LEFT JOIN ${properties_billed_on_unit_type.SQL_TABLE_NAME} unit_type
-        ON orders.id = unit_type.id
+        LEFT JOIN ${property_provisioning_plans.SQL_TABLE_NAME} unit_type
+        ON orders.plan_id = unit_type.plan_id
         WHERE properties_order_line_items.is_recurring IS TRUE
         AND orders.deactivated_at IS NULL) x1
         GROUP BY 1,2) x2

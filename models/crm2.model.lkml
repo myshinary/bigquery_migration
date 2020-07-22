@@ -62,6 +62,12 @@ explore: segmentation {
     type: left_outer
   }
 
+  join: property_provisioning_plans {
+    sql_on: ${properties_order_line_items.properties_plan_id} = ${property_provisioning_plans.plan_id} ;;
+    relationship: many_to_one
+    type: left_outer
+  }
+
   join: product_environments {
     sql_on: ${orders.product_environment_id} = ${product_environments.id} ;;
     relationship: one_to_one
@@ -80,12 +86,6 @@ explore: segmentation {
   #  relationship: one_to_many
   #  type: left_outer
   #}
-
-  join: properties_billed_on_unit_type {
-    sql_on: ${orders.id} = ${properties_billed_on_unit_type.id} ;;
-    relationship: one_to_one
-    type: left_outer
-  }
 
   join: in_house_maintenance {
     sql_on: ${management_companies.id} = ${in_house_maintenance.id} ;;
