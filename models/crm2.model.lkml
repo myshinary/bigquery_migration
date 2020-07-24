@@ -98,6 +98,12 @@ explore: segmentation {
     relationship: one_to_one
     type: left_outer
   }
+
+  join: aln_units_under_management {
+    sql_on: ${management_companies.id} = ${aln_units_under_management.management_company_id} ;;
+    relationship: one_to_one
+    type: left_outer
+  }
 }
 
 explore: hub_customers {
@@ -111,8 +117,8 @@ explore: hub_customers {
   #sql_always_where: ${aln.apartments.status_id} != 15
   #  ;;
 
-  join: current_recurring_finance_normalized_line_items {
-    sql_on: ${customers.id} = ${current_recurring_finance_normalized_line_items.hub_customer_id};;
+  join: finance_normalized_line_items {
+    sql_on: ${customers.saasoptics_id} = ${finance_normalized_line_items.so_customer_id};;
     relationship: one_to_many
     type: left_outer
   }
@@ -129,20 +135,32 @@ explore: hub_customers {
     type: left_outer
   }
 
-  join: property_provisioning_active_counts {
-    sql_on: ${customers.id} = ${property_provisioning_active_counts.customer_id};;
-    relationship: one_to_many
+  join: product_environments {
+    sql_on: ${customers.id} = ${product_environments.customer_id} ;;
+    relationship: one_to_one
     type: left_outer
   }
 
-  join: product_environments {
-    sql_on: ${property_provisioning_active_counts.product_environment_id} = ${product_environments.id} ;;
-    relationship: one_to_one
+  join: property_provisioning_active_counts {
+    sql_on: ${product_environments.id} = ${property_provisioning_active_counts.product_environment_id};;
+    relationship: one_to_many
     type: left_outer
   }
 
   join: product_environment_feature_flags_and_status {
     sql_on: ${product_environments.id} = ${product_environment_feature_flags_and_status.product_environment_id} ;;
+    relationship: one_to_one
+    type: left_outer
+  }
+
+  join: customer_current_overall_risks {
+    sql_on: ${customers.id} = ${customer_current_overall_risks.customer_id};;
+    relationship: one_to_one
+    type: left_outer
+  }
+
+  join: approximate_transaction_renewals {
+    sql_on: ${customers.saasoptics_id} = ${approximate_transaction_renewals.so_customer_id};;
     relationship: one_to_one
     type: left_outer
   }

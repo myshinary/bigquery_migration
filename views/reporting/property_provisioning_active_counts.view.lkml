@@ -80,7 +80,7 @@ view: property_provisioning_active_counts {
   dimension: hub_customer {
     label: "Customer"
     sql: ${hub_customer_link} ;;
-    html: <a href="{{ value }}" target="_blank">{{ id }} <img src="https://storage.googleapis.com/happyco-downloadable-assets/bi/public/external-link.png" style=" width: 8px; height: 8px; display: inline-block;" /></a> ;;
+    html: <a href="{{ value }}" target="_blank">{{ customer_id }} <img src="https://storage.googleapis.com/happyco-downloadable-assets/bi/public/external-link.png" style=" width: 8px; height: 8px; display: inline-block;" /></a> ;;
     group_label: "HUB Links"
   }
 

@@ -52,11 +52,12 @@ view: management_companies {
     description: "Does the ALN-listed Company have any 'Maintenance' employees?"
   }
 
-  #measure: count {
-  #  type: count
-  #  drill_fields: [
-  #    name,
-  #    aln_business_mapping.happy_co_business_id
-  #  ]
-  #}
+  measure: count {
+    label: "Management Companies"
+    type: count
+    #drill_fields: [
+    #  name,
+    #  aln_business_mapping.happy_co_business_id
+    #]
+  }
 }

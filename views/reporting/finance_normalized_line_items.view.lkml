@@ -1,7 +1,7 @@
 view: finance_normalized_line_items {
   sql_table_name: `happyco-internal-systems.hub__reporting.finance_normalized_line_items`
     ;;
-    view_label: "C"
+    view_label: "HUB"
   drill_fields: [id]
 
   dimension: id {
@@ -15,6 +15,13 @@ view: finance_normalized_line_items {
     type: number
     sql: ${TABLE}.amount_cents ;;
     hidden: yes
+  }
+
+  measure: lifetime_value {
+    type: sum
+    sql: ${amount_cents}/100;;
+    group_label: "Finances"
+    value_format: "$#,##0;($#,##0)"
   }
 
   dimension: billing_currency {
@@ -134,13 +141,16 @@ view: finance_normalized_line_items {
     sql: ${mrr_dimension} ;;
     label: "MRR"
     value_format: "$#,##0;($#,##0)"
+    hidden:yes
   }
 
-  dimension: current_mrr {
-    type: yesno
-    sql: CASE WHEN (now() >= ${finance_normalized_line_items.original_started_date} AND now() <=  ${finance_normalized_line_items.original_ended_date}) THEN TRUE ELSE FALSE END ;;
+  measure: current_mrr {
+    type: sum
+    sql: CASE WHEN (current_date >= ${finance_normalized_line_items.original_started_date} AND current_date <=  ${finance_normalized_line_items.original_ended_date}) THEN ${mrr_dimension} ELSE NULL END ;;
     label: "Current MRR"
-    hidden: yes
+    group_label: "Finances"
+    value_format: "$#,##0;($#,##0)"
+    hidden: no
   }
 
   dimension: months {
@@ -195,6 +205,17 @@ view: finance_normalized_line_items {
     datatype: date
     sql: ${TABLE}.original_started_on ;;
     hidden: yes
+  }
+
+  measure: customer_started {
+    type: min
+    sql: ${original_started_date} ;;
+    hidden: yes
+  }
+
+  measure: customer_age_in_months {
+    type: number
+    sql: DATE_DIFF(current_date,${customer_started},MONTH) ;;
   }
 
   dimension: paid_amount_cents {
