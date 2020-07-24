@@ -52,6 +52,12 @@ view: management_companies {
     description: "Does the ALN-listed Company have any 'Maintenance' employees?"
   }
 
+  dimension: has_happyco_account {
+    type: yesno
+    sql: CASE WHEN ${business_mapping.happy_co_business_id} IS NULL THEN FALSE ELSE TRUE END ;;
+    group_label: "Management Company"
+  }
+
   measure: count {
     label: "Management Companies"
     type: count

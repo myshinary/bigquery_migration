@@ -104,6 +104,12 @@ explore: segmentation {
     relationship: one_to_one
     type: left_outer
   }
+
+  join: business_mapping {
+    sql_on: ${management_companies.id} = ${business_mapping.aln_id} ;;
+    relationship: one_to_many
+    type: left_outer
+  }
 }
 
 explore: hub_customers {
