@@ -110,6 +110,12 @@ explore: segmentation {
     relationship: one_to_many
     type: left_outer
   }
+
+  join: apartment_pms {
+    sql_on: ${apartments.id} = ${apartment_pms.aln_apartment_id} ;;
+    relationship: one_to_one
+    type: left_outer
+  }
 }
 
 explore: hub_customers {

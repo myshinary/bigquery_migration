@@ -1,7 +1,7 @@
 view: business_mapping {
   sql_table_name: `happyco-internal-systems.hub__aln_data.business_mapping`
     ;;
-    view_label: "Management Company"
+    view_label: "ALN"
 
   dimension: aln_id {
     type: string
