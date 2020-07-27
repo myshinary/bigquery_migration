@@ -22,7 +22,7 @@ explore: mrr {
   }
 
   join: customers {
-    sql_on: ${daily_mrr_by_customer_product.customer} = ${customers.saasoptics_id} ;;
+    sql_on: ${daily_mrr_by_customer_product.parent_id} = ${customers.saasoptics_id} ;;
     relationship: many_to_one
     type: left_outer
   }
