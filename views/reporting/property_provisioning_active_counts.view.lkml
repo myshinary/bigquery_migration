@@ -111,7 +111,7 @@ view: property_provisioning_active_counts {
   }
 
   dimension: product_environment_name {
-    label: "HappyCo Business Name"
+    label: "Business Name"
     type: string
     sql: ${TABLE}.product_environment_name ;;
     view_label: "HappyCo"
