@@ -48,6 +48,7 @@ view: daily_mrr_by_customer_product {
   filter: remove_fx_adjustment {
     type: yesno
     sql:  ${fx_adjustment_change_dimension} IS NULL;;
+    hidden: yes
   }
 
   dimension: fx_adjustment_change_dimension {
