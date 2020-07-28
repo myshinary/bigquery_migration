@@ -233,6 +233,7 @@ view: apartments {
     type: average
     sql: ${number_of_units} ;;
     hidden: no
+    value_format: "0.0"
   }
 
   measure: median_units {

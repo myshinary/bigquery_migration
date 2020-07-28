@@ -59,8 +59,8 @@ view: management_companies {
   }
 
   measure: count {
-    label: "Management Companies"
     type: count
+    group_label: "Management Company"
     #drill_fields: [
     #  name,
     #  aln_business_mapping.happy_co_business_id
