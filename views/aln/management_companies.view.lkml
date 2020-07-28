@@ -1,7 +1,7 @@
 view: management_companies {
   sql_table_name: `happyco-internal-systems.hub__aln_data.management_companies`
     ;;
-  view_label: "ALN"
+  view_label: "ALN Management Company"
 
   dimension: id {
     primary_key: yes
@@ -13,7 +13,6 @@ view: management_companies {
   dimension: name {
     type: string
     sql: ${TABLE}.name ;;
-    group_label: "Management Company"
   }
 
   dimension: website {
@@ -55,12 +54,10 @@ view: management_companies {
   dimension: has_happyco_account {
     type: yesno
     sql: CASE WHEN ${business_mapping.happy_co_business_id} IS NULL THEN FALSE ELSE TRUE END ;;
-    group_label: "Management Company"
   }
 
   measure: count {
     type: count
-    group_label: "Management Company"
     #drill_fields: [
     #  name,
     #  aln_business_mapping.happy_co_business_id

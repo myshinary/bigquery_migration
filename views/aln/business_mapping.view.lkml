@@ -1,7 +1,7 @@
 view: business_mapping {
   sql_table_name: `happyco-internal-systems.hub__aln_data.business_mapping`
     ;;
-    view_label: "ALN"
+    view_label: "ALN Management Company"
 
   dimension: aln_id {
     type: string
@@ -18,7 +18,6 @@ view: business_mapping {
   measure: happy_co_business_ids {
     type: string
     sql: STRING_AGG(DISTINCT CAST(${happy_co_business_id} AS STRING),', ');;
-    group_label: "Management Company"
   }
 
   #measure: count {

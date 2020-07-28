@@ -1,5 +1,5 @@
 view: property_type {
-  view_label: "ALN"
+  view_label: "ALN Apartment"
   derived_table: {
     sql:
     SELECT id, STRING_AGG(property_type,', ') as property_types

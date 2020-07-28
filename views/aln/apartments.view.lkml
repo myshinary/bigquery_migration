@@ -2,7 +2,7 @@ view: apartments {
   sql_table_name: `happyco-internal-systems.hub__aln_data.apartments`
     ;;
 
-    view_label: "ALN"
+    view_label: "ALN Apartment"
 
   dimension: id {
     primary_key: yes
@@ -352,7 +352,6 @@ view: apartments {
   }
 
   measure: count {
-    label: "Property Count"
     type: count
     drill_fields: [id, previous_name, property_name]
   }

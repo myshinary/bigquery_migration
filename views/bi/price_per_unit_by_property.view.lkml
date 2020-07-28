@@ -27,6 +27,8 @@ view: price_per_unit_by_property {
     #indexes: ["transaction_number","invoice_number"]
     }
 
+    view_label: "Customer"
+
     dimension: id {
       primary_key: yes
       type: number
@@ -39,7 +41,6 @@ view: price_per_unit_by_property {
       sql: ${TABLE}.price_per_unit ;;
       hidden: yes
       #value_format: "$#,##0;($#,##0)"
-      view_label: "HappyCo"
       group_label: "Revenue"
     }
 
@@ -47,7 +48,6 @@ view: price_per_unit_by_property {
       type: average
       sql: ${price_per_unit_dimension} ;;
       value_format: "$0.00;($0.00)"
-      view_label: "HappyCo"
       group_label: "Revenue"
       description: "Price per Unit for all Products in a Property."
     }

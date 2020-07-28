@@ -2,7 +2,7 @@ view: apartment_pms {
   sql_table_name: `happyco-internal-systems.hub__aln_data.apartment_pms`
     ;;
 
-    view_label: "ALN"
+    view_label: "ALN Apartment"
 
   dimension: aln_apartment_id {
     type: string

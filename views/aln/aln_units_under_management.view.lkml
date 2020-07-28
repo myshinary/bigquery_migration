@@ -8,7 +8,7 @@ derived_table: {
      ;;
   }
 
-  view_label: "ALN"
+  view_label: "ALN Management Company"
 
   dimension: management_company_id {
     type: number
@@ -20,19 +20,19 @@ derived_table: {
   dimension: units_under_management {
     type: number
     sql: ${TABLE}.units_under_management ;;
-    group_label: "Management Company"
+    group_label: "TUUM"
   }
 
   dimension: properties_under_management {
     type: number
     sql: ${TABLE}.properties_under_management ;;
-    group_label: "Management Company"
+    group_label: "TUUM"
   }
 
   dimension: units_under_management_tier {
     type: string
     sql: CASE WHEN ${units_under_management} < 1000 THEN '1. <1k' WHEN ${units_under_management} BETWEEN 1000 AND 10000 THEN '2. 1k-10k' WHEN ${units_under_management} BETWEEN 10001 AND 20000 THEN '3. 10k-20k' WHEN ${units_under_management} > 20000 THEN '4. >20k' ELSE NULL END;;
-    group_label: "Management Company"
+    group_label: "TUUM"
   }
 
   dimension: units_under_management_rounded {
@@ -40,7 +40,7 @@ derived_table: {
     sql: ROUND(${units_under_management},-2);;
     description: "Units under management rounded to the nearest 100"
     value_format: "#,##0"
-    group_label: "Management Company"
+    group_label: "TUUM"
   }
 
   dimension: units_under_management_normalized_group_ordering {
@@ -52,20 +52,20 @@ derived_table: {
   dimension: units_under_management_normalized_group {
     type: string
     sql: CASE WHEN ${units_under_management} < 50 THEN "<50" WHEN ${units_under_management} BETWEEN 50 AND 54 THEN "45-54" WHEN ${units_under_management} BETWEEN 55 AND 69 THEN "55-69" WHEN ${units_under_management} BETWEEN 70 AND 84 THEN "70-84" WHEN ${units_under_management} BETWEEN 85 AND 99 THEN "85-99" WHEN ${units_under_management} BETWEEN 100 AND 114 THEN "100-114" WHEN ${units_under_management} BETWEEN 115 AND 124 THEN "115-124" WHEN ${units_under_management} BETWEEN 125 AND 149 THEN "125-149" WHEN ${units_under_management} BETWEEN 150 AND 174 THEN "150-174" WHEN ${units_under_management} BETWEEN 175 AND 199 THEN "175-199" WHEN ${units_under_management} BETWEEN 200 AND 249 THEN "200-249" WHEN ${units_under_management} BETWEEN 250 AND 299 THEN "250-299" WHEN ${units_under_management} BETWEEN 300 AND 349 THEN "300-349" WHEN ${units_under_management} BETWEEN 350 AND 399 THEN "350-399" WHEN ${units_under_management} BETWEEN 400 AND 449 THEN "400-449" WHEN ${units_under_management} BETWEEN 450 AND 499 THEN "450-499" WHEN ${units_under_management} BETWEEN 500 AND 549 THEN "500-549" WHEN ${units_under_management} BETWEEN 550 AND 649 THEN "550-649" WHEN ${units_under_management} BETWEEN 650 AND 799 THEN "650-799" WHEN ${units_under_management} BETWEEN 800 AND 999 THEN "800-999" WHEN ${units_under_management} BETWEEN 1000 AND 1199 THEN "1,000-1,199" WHEN ${units_under_management} BETWEEN 1200 AND 1499 THEN "1,200-1,499" WHEN ${units_under_management} BETWEEN 1500 AND 1999 THEN "1,500-1,999" WHEN ${units_under_management} BETWEEN 2000 AND 2999 THEN "2,000-2,999" WHEN ${units_under_management} BETWEEN 3000 AND 4999 THEN "3,000-4,999" WHEN ${units_under_management} BETWEEN 5000 AND 7999 THEN "5,000-7,999" WHEN ${units_under_management} BETWEEN 8000 AND 14999 THEN "8,000-14,999" WHEN ${units_under_management} BETWEEN 15000 AND 19999 THEN "15,000-19,999" WHEN ${units_under_management} BETWEEN 20000 AND 34999 THEN "20,000-34,999" WHEN ${units_under_management} >= 35000 THEN "35,000+" ELSE NULL END;;
-    group_label: "Management Company"
     order_by_field: units_under_management_normalized_group_ordering
+    group_label: "TUUM"
   }
 
   #measure: avg_units_under_management {
   #  type: average
   #  sql: ${units_under_management} ;;
-  #  group_label: "Management Company"
+
   #}
   #
   #measure: median_units_under_management {
   #  type: median
   #  sql: ${units_under_management} ;;
-  #  group_label: "Management Company"
+
   #}
 
 }

@@ -29,7 +29,7 @@ view: management_company_main_property_class {
          ;;
   }
 
-  view_label: "ALN"
+  view_label: "ALN Management Company"
 
   dimension: management_company_id {
     type: number
@@ -74,8 +74,7 @@ view: management_company_main_property_class {
       label: "No"
       value: "Include"
     }
-
-    group_label: "Management Company"
+    group_label: "Class"
   }
 
   dimension: main_property_class {
@@ -88,7 +87,7 @@ view: management_company_main_property_class {
     {% else %}
       ${include_unknown_class}
     {% endif %};;
-    group_label: "Management Company"
+    group_label: "Class"
   }
 
   dimension: main_property_class_coverage {
@@ -102,7 +101,6 @@ view: management_company_main_property_class {
       ${include_unknown_coverage}
     {% endif %};;
     value_format: "0.0%"
-    group_label: "Management Company"
+    group_label: "Class"
   }
-
 }

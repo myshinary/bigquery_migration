@@ -123,6 +123,12 @@ explore: segmentation {
     type: left_outer
   }
 
+  join: management_company_main_pms {
+    sql_on: ${management_companies.id} = ${management_company_main_pms.management_company_id} ;;
+    relationship: one_to_one
+    type: left_outer
+  }
+
 
 }
 

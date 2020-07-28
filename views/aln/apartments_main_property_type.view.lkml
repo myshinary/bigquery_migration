@@ -1,5 +1,5 @@
 view: apartments_main_property_type {
-view_label: "ALN"
+view_label: "ALN Management Company"
   derived_table: {
     sql:
     --has_short_term_leases and has_corporate_housing excluded as property features, not types
@@ -96,14 +96,14 @@ view_label: "ALN"
     type: string
     sql: ${TABLE}.main_property_type ;;
     hidden: no
-    group_label: "Management Company"
+    group_label: "Industry"
   }
 
   dimension: main_property_type_list {
     type: string
     sql: ${TABLE}.main_property_type_list ;;
     hidden: no
-    group_label: "Management Company"
+    group_label: "Industry"
   }
 
   #measure: count {
