@@ -91,7 +91,7 @@ view: daily_mrr_by_customer_product {
     type: number
     sql: ${TABLE}.parent_id ;;
     label: "HUB ID"
-    view_label: "HappyCo"
+    view_label: "Customer"
     #renamed as customer field because not currently bringing in hierarchy as joins to revenue are simpler at the parent level
   }
 

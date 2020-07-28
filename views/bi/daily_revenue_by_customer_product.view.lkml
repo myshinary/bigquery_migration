@@ -2,6 +2,8 @@ view: daily_revenue_by_customer_product {
   sql_table_name: `bi.daily_revenue_by_customer_product`
     ;;
 
+    view_label: "Revenue"
+
   dimension: amount_dimension {
     type: number
     sql: ${TABLE}.amount ;;
@@ -18,6 +20,7 @@ view: daily_revenue_by_customer_product {
   dimension: customer_id {
     type: number
     sql: ${TABLE}.customer_id ;;
+    hidden: yes
   }
 
   dimension_group: date {
@@ -43,6 +46,7 @@ view: daily_revenue_by_customer_product {
   dimension: parent_id {
     type: number
     sql: ${TABLE}.parent_id ;;
+    hidden: yes
   }
 
   dimension: product {

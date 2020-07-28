@@ -1,7 +1,7 @@
 view: customers {
   sql_table_name: `happyco-internal-systems.bi.customers`
     ;;
-    view_label: "HappyCo"
+    view_label: "Customer"
   drill_fields: [id]
 
   dimension: id {
@@ -46,7 +46,7 @@ view: customers {
   dimension: parent {
     type: string
     sql: ${TABLE}.parent ;;
-    label: "Account Name"
+    label: "Name"
     #renamed as customer field because not currently bringing in hierarchy as joins to revenue are simpler at the parent level
   }
 
