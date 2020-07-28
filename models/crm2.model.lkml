@@ -5,6 +5,7 @@ label: "CRM"
 include: "/views/real_properties/*.lkml"
 include: "/views/aln/*.lkml"
 include: "/views/bi/*.lkml"
+include: "/views/due_diligence/*.lkml"
 include: "/views/identities/*.lkml"
 include: "/views/saas_optics/*.lkml"
 include: "/views/property_provisioning/*.lkml"
@@ -129,6 +130,11 @@ explore: segmentation {
     type: left_outer
   }
 
+  join: dd_orders {
+    sql_on: (${properties.id} = ${dd_orders.real_property_id}) ;;
+    relationship: one_to_one
+    type: left_outer
+  }
 
 }
 
