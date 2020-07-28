@@ -46,7 +46,7 @@ view: customers {
   dimension: parent {
     type: string
     sql: ${TABLE}.parent ;;
-    label: "Name"
+    label: "Account Name"
     #renamed as customer field because not currently bringing in hierarchy as joins to revenue are simpler at the parent level
   }
 
