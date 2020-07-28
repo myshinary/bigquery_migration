@@ -47,7 +47,7 @@ explore: transactions {
   }
 
     join: customers {
-      sql_on: ${daily_revenue_by_customer_product.customer_id} = ${customers.saasoptics_id} ;;
+      sql_on: ${daily_revenue_by_customer_product.parent_id} = ${customers.saasoptics_id} ;;
       relationship: many_to_one
       type: left_outer
     }

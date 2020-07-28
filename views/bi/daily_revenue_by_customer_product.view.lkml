@@ -26,6 +26,7 @@ view: daily_revenue_by_customer_product {
       raw,
       date,
       day_of_week,
+      day_of_month,
       week,
       week_of_year,
       month,
