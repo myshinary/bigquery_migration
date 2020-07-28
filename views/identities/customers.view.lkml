@@ -8,6 +8,8 @@ view: customers {
     primary_key: yes
     type: number
     sql: ${TABLE}.id ;;
+    hidden: yes
+    #not currently bringing in hierarchy as joins to revenue are simpler at the parent level
   }
 
   dimension: hub_customer_link_html {
@@ -37,21 +39,29 @@ view: customers {
   dimension: name {
     type: string
     sql: ${TABLE}.name ;;
+    hidden: yes
+    #not currently bringing in hierarchy as joins to revenue are simpler at the parent level
   }
 
   dimension: parent {
     type: string
     sql: ${TABLE}.parent ;;
+    label: "Name"
+    #renamed as customer field because not currently bringing in hierarchy as joins to revenue are simpler at the parent level
   }
 
   dimension: parent_id {
     type: number
     sql: ${TABLE}.parent_id ;;
+    hidden: yes
+    #same as saasoptics_id - not currently bringing in hierarchy as joins to revenue are simpler at the parent level
   }
 
   dimension: parent_saasoptics_id {
     type: number
     sql: ${TABLE}.parent_saasoptics_id ;;
+    label: "SaasOptics ID"
+    #renamed as customer field because not currently bringing in hierarchy as joins to revenue are simpler at the parent level
   }
 
   dimension: saasoptics_id {

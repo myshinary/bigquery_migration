@@ -6,11 +6,14 @@ view: daily_mrr_by_customer_product {
   dimension: mrr_dimension {
     type: number
     sql: ${TABLE}.mrr ;;
+    hidden: yes
   }
 
   dimension: customer {
     type: number
     sql: ${TABLE}.customer ;;
+    hidden: yes
+    #not currently bringing in hierarchy as joins to revenue are simpler at the parent level
   }
 
   dimension_group: date {
@@ -86,6 +89,9 @@ view: daily_mrr_by_customer_product {
   dimension: parent_id {
     type: number
     sql: ${TABLE}.parent_id ;;
+    label: "HUB ID"
+    view_label: "HappyCo"
+    #renamed as customer field because not currently bringing in hierarchy as joins to revenue are simpler at the parent level
   }
 
   dimension: parent_expansion_contraction_dimension {
@@ -228,6 +234,8 @@ view: daily_mrr_by_customer_product {
   measure: count {
     type: count
     drill_fields: []
+    hidden: yes
+    #not currently bringing in hierarchy as joins to revenue are simpler at the parent level
   }
 
   #parameter: mrr_change_bucket_size {
@@ -243,6 +251,8 @@ view: daily_mrr_by_customer_product {
   measure: parent_count {
     type:  count_distinct
     sql:  ${parent_id} ;;
+    label: "Count"
+    #renamed as customer field because not currently bringing in hierarchy as joins to revenue are simpler at the parent level
   }
 
   set: mrr_drill {
