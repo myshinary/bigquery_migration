@@ -35,10 +35,43 @@ derived_table: {
     group_label: "TUUM"
   }
 
+  parameter: units_under_management_rounded_by {
+    label: "Round Units By"
+    type: unquoted
+    allowed_value: {
+      label: "Nearest 10"
+      value: "1"
+    }
+    allowed_value: {
+      label: "Nearest 100"
+      value: "2"
+    }
+    allowed_value: {
+      label: "Nearest 1,000"
+      value: "3"
+    }
+    allowed_value: {
+      label: "Nearest 10,000"
+      value: "4"
+    }
+    group_label: "TUUM"
+  }
+
   dimension: units_under_management_rounded {
     type: number
-    sql: ROUND(${units_under_management},-2);;
-    description: "Units under management rounded to the nearest 100"
+    sql:
+    {% if units_under_management_rounded_by._parameter_value == "1" %}
+    ROUND(${units_under_management},-1)
+    {% elsif units_under_management_rounded_by._parameter_value == "2" %}
+    ROUND(${units_under_management},-2)
+    {% elsif units_under_management_rounded_by._parameter_value == "3" %}
+    ROUND(${units_under_management},-3)
+    {% elsif units_under_management_rounded_by._parameter_value == "4" %}
+    ROUND(${units_under_management},-4)
+    {% else %}
+    ROUND(${units_under_management},-2)
+    {% endif %};;
+    description: "Units under management rounded to the nearest 100 or amount specified by the Round Units By filter located under TUUM above"
     value_format: "#,##0"
     group_label: "TUUM"
   }
