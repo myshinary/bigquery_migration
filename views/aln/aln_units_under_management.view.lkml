@@ -43,16 +43,28 @@ derived_table: {
       value: "1"
     }
     allowed_value: {
-      label: "Nearest 100"
+      label: "Nearest 50"
       value: "2"
     }
     allowed_value: {
-      label: "Nearest 1,000"
+      label: "Nearest 100"
       value: "3"
     }
     allowed_value: {
-      label: "Nearest 10,000"
+      label: "Nearest 1,000"
       value: "4"
+    }
+    allowed_value: {
+      label: "Nearest 2,000"
+      value: "5"
+    }
+    allowed_value: {
+      label: "Nearest 5,000"
+      value: "6"
+    }
+    allowed_value: {
+      label: "Nearest 10,000"
+      value: "7"
     }
     group_label: "TUUM"
   }
@@ -63,10 +75,16 @@ derived_table: {
     {% if units_under_management_rounded_by._parameter_value == "1" %}
     ROUND(${units_under_management},-1)
     {% elsif units_under_management_rounded_by._parameter_value == "2" %}
-    ROUND(${units_under_management},-2)
+    ROUND(${units_under_management}*2,-3)/2
     {% elsif units_under_management_rounded_by._parameter_value == "3" %}
-    ROUND(${units_under_management},-3)
+    ROUND(${units_under_management},-2)
     {% elsif units_under_management_rounded_by._parameter_value == "4" %}
+    ROUND(${units_under_management},-3)
+    {% elsif units_under_management_rounded_by._parameter_value == "5" %}
+    ROUND(${units_under_management}/2,-3)*2
+    {% elsif units_under_management_rounded_by._parameter_value == "6" %}
+    ROUND(${units_under_management}/5,-3)*5
+    {% elsif units_under_management_rounded_by._parameter_value == "7" %}
     ROUND(${units_under_management},-4)
     {% else %}
     ROUND(${units_under_management},-2)
