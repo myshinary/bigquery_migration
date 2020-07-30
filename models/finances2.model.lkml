@@ -51,35 +51,4 @@ explore: transactions {
       relationship: many_to_one
       type: left_outer
     }
-
-  #join: saasoptics_customer_private_data {
-  #  sql_on: ${saasoptics_customers.id} = ${saasoptics_customer_private_data.id} ;;
-  #  relationship: one_to_one
-  #  type: left_outer
-  #}
-
-  #join: saasoptics_contracts {
-  #  sql_on: ${saasoptics_customers.id} = ${saasoptics_contracts.customer} ;;
-  #  relationship: many_to_one
-  #  type: left_outer
-  #}
-  #
-  #join: saasoptics_transactions {
-  #  sql_on: ${saasoptics_revenue.transaction_id} = ${saasoptics_transactions.id} ;;
-  #  relationship: one_to_one
-  #  type: left_outer
-  #}
-  #
-  #join: saasoptics_invoice_line_items {
-  #  sql_on: ${saasoptics_transactions.id} = ${saasoptics_invoice_line_items.transaction} ;;
-  #  relationship: one_to_one
-  #  type: left_outer
-  #}
-  #join: saasoptics_invoices {
-  #  sql_on: ${saasoptics_invoices.id} = ${saasoptics_invoice_line_items.invoice} ;;
-  #  relationship: many_to_one
-  #  type: left_outer
-  #}
 }
-
-#explore: daily_revenue_by_customer_product {}

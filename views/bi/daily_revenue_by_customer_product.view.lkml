@@ -1,5 +1,5 @@
 view: daily_revenue_by_customer_product {
-  sql_table_name: `bi.daily_revenue_by_customer_product`
+  sql_table_name: `happyco-internal-systems.bi.daily_revenue_by_customer_product`
     ;;
 
     view_label: "Revenue"
