@@ -82,8 +82,9 @@ view: properties {
   }
 
   measure: total_units {
-    type: sum
+    type: sum_distinct
     sql: ${number_of_units} ;;
+    sql_distinct_key: ${id} ;;
   }
 
   dimension: postcode {
@@ -146,7 +147,9 @@ view: properties {
   }
 
   measure: count {
-    type: count
+    type: count_distinct
+    sql: ${id} ;;
+    sql_distinct_key: ${id} ;;
     #drill_fields: [id, name, legal_name]
   }
 }
