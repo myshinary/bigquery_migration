@@ -2,7 +2,9 @@ view: properties_order_line_items {
   sql_table_name: `happyco-internal-systems.hub__orders.properties_order_line_items`
     ;;
   view_label: "Customer"
-  drill_fields: [id]
+  set: detail {
+    fields: [id, management_companies.name, customers.name, properties.name, unit_count, product, mrr, price_per_unit, transactional_amount]      # creates named set customers.detail
+  }
 
   dimension: id {
     primary_key: yes
@@ -28,6 +30,7 @@ view: properties_order_line_items {
     sql: ${transactional_amount_dimension} ;;
     value_format: "$#,##0;($#,##0)"
     group_label: "Revenue"
+    drill_fields: [detail*]
   }
 
   measure: mrr {
@@ -36,6 +39,7 @@ view: properties_order_line_items {
     label: "MRR"
     value_format: "$#,##0;($#,##0)"
     group_label: "Revenue"
+    drill_fields: [detail*]
   }
 
   dimension: unit_count {
@@ -59,6 +63,7 @@ view: properties_order_line_items {
     group_label: "Revenue"
     description: "Price per Unit split by Product. General rule is to use this any time Product is added to the Look."
     hidden: no
+    drill_fields: [detail*]
   }
 
   dimension_group: canceled {
@@ -113,6 +118,12 @@ view: properties_order_line_items {
   dimension: product {
     type: string
     sql:CASE WHEN ${product_type} = 'happy_inspector' THEN 'Inspector' WHEN ${product_type} = 'happy_tasks' THEN 'Tasks' WHEN ${product_type} = 'happy_insights' THEN 'Insights' WHEN ${product_type} = 'property_provisioning_fees' THEN 'Property Provisioning Fees' ELSE REPLACE(${product_type},'_',' ') END;;
+  }
+
+  measure: products {
+    type: string
+    sql: STRING_AGG(DISTINCT NULLIF(${product},'Property Provisioning Fees'),', ') ;;
+    drill_fields: [detail*]
   }
 
   dimension: properties_contract_terms_revision_id {

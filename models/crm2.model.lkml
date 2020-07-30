@@ -33,8 +33,14 @@ explore: segmentation {
     type: left_outer
   }
 
+  join: aln_management_company_id_correction {
+    sql_on: ${apartments.id} = ${aln_management_company_id_correction.aln_apartment_id} ;;
+    relationship: many_to_many
+    type: left_outer
+  }
+
   join: management_companies {
-    sql_on: ${apartments.management_company_id} = ${management_companies.id} ;;
+    sql_on: ${aln_management_company_id_correction.correct_management_company_id} = ${management_companies.id} ;;
     relationship: many_to_many
     type: left_outer
   }
