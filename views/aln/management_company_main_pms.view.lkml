@@ -26,12 +26,14 @@ view: management_company_main_pms {
   }
 
   dimension: main_pms {
+    label: "Main PMS"
     type: string
     sql: ${TABLE}.pms_group ;;
     group_label: "PMS"
   }
 
   dimension: main_pms_coverage {
+    label: "Main PMS Coverage"
     type: number
     sql: ${TABLE}.coverage ;;
     value_format: "0.0%"
