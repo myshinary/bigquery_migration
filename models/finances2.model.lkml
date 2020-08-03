@@ -33,6 +33,12 @@ explore: mrr {
     type: left_outer
   }
 
+  join: product_environments {
+    sql_on: ${customers.id} = ${product_environments.customer_id} ;;
+    relationship: many_to_one
+    type: left_outer
+  }
+
 }
 
 explore: transactions {

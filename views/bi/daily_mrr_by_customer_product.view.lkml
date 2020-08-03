@@ -90,8 +90,9 @@ view: daily_mrr_by_customer_product {
   dimension: parent_id {
     type: number
     sql: ${TABLE}.parent_id ;;
-    label: "HUB ID"
+    label: "SaasOptics Parent ID"
     view_label: "Customer"
+    hidden: yes
     #renamed as customer field because not currently bringing in hierarchy as joins to revenue are simpler at the parent level
   }
 
