@@ -67,6 +67,14 @@ view: customer_owners {
     group_label: "Account Managers"
   }
 
+  measure: empoyee_names {
+    type: string
+    sql: STRING_AGG(DISTINCT ${employee_name},', ') ;;
+    description: "For use when pivoting on Employee Role"
+    group_label: "Account Managers"
+
+  }
+
   dimension: owner_type {
     label: "Employee Role"
     type: string
