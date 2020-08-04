@@ -6,7 +6,7 @@ view: price_per_unit_by_property {
         FROM
         (SELECT id, product_type, SUM(mrr)/SUM(DISTINCT unit_quantity) as price_per_unit
         FROM
-        (SELECT properties.id, properties_order_line_items.product_type, properties_order_line_items.amount_cents/1200 as mrr, CASE WHEN unit_type.unit_type = 'bed' THEN apartments.number_of_units ELSE orders.unit_quantity END as unit_quantity
+        (SELECT properties.id, properties_order_line_items.product_type, properties_order_line_items.amount_cents/1200 as mrr, CASE WHEN unit_type.unit_type = 'bed' THEN COALESCE(NULLIF(apartments.number_of_units,0),orders.unit_quantity) ELSE orders.unit_quantity END as unit_quantity
         FROM ${properties.SQL_TABLE_NAME} properties
         LEFT JOIN ${aln_mappings.SQL_TABLE_NAME} as aln_mappings
         ON properties.id = aln_mappings.property_id
