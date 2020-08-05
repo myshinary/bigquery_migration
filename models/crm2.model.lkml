@@ -191,6 +191,12 @@ explore: hub_customers {
     type: left_outer
   }
 
+  join: due_diligence_fullfilled_orders {
+    sql_on: ${product_environments.id} = ${due_diligence_fullfilled_orders.product_environment_id} ;;
+    relationship: one_to_many
+    type: left_outer
+  }
+
   join: property_provisioning_active_counts {
     sql_on: ${product_environments.id} = ${property_provisioning_active_counts.product_environment_id};;
     relationship: one_to_many
