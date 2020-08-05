@@ -168,7 +168,7 @@ explore: hub_customers {
   #  ;;
 
   join: finance_normalized_line_items {
-    sql_on: ${customers.saasoptics_id} = ${finance_normalized_line_items.so_customer_id};;
+    sql_on: ${customers.saasoptics_id} = ${finance_normalized_line_items.root_so_customer_id};;
     relationship: one_to_many
     type: left_outer
   }
