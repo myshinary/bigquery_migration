@@ -36,6 +36,8 @@ view: customer_cs_pulse_metric_details {
     type: string
     sql: ${TABLE}.employee_email ;;
     group_label: "CS"
+    hidden: yes
+    #hidden until requested
   }
 
   dimension: employee_id {
@@ -45,6 +47,7 @@ view: customer_cs_pulse_metric_details {
   }
 
   dimension: employee_name {
+    label: "Customer Update Posted by"
     type: string
     sql: ${TABLE}.employee_name ;;
     group_label: "CS"
