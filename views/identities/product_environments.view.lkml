@@ -66,9 +66,10 @@ view: product_environments {
   }
 
   dimension: happy_business_id {
+    label: "HappyCo Business ID"
     type: number
     sql: ${TABLE}.happy_business_id ;;
-    hidden: yes
+    hidden: no
   }
 
   dimension: happy_business_link_html {
