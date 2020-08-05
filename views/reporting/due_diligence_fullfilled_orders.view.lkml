@@ -3,10 +3,13 @@ view: due_diligence_fullfilled_orders {
     ;;
   drill_fields: [id]
 
+  view_label: "DD Orders"
+
   dimension: id {
     primary_key: yes
     type: number
     sql: ${TABLE}.id ;;
+    hidden: yes
   }
 
   dimension: amount_cents {
@@ -16,10 +19,11 @@ view: due_diligence_fullfilled_orders {
   }
 
   measure: revenue_amount {
+    label: "Revenue"
     type: sum
     sql: ${amount_cents}/100;;
-    group_label: "Finances"
     value_format: "$#,##0;($#,##0)"
+
   }
 
   dimension_group: completed {
@@ -53,6 +57,7 @@ view: due_diligence_fullfilled_orders {
   }
 
   dimension: lfa_project_id {
+    label: "LFA Project ID"
     type: number
     sql: ${TABLE}.lfa_project_id ;;
   }
@@ -70,6 +75,7 @@ view: due_diligence_fullfilled_orders {
   }
 
   dimension: product_names {
+    label: "Product"
     type: string
     sql: ${TABLE}.product_names ;;
   }
@@ -96,6 +102,7 @@ view: due_diligence_fullfilled_orders {
   }
 
   dimension_group: started {
+    label: "DD Started"
     type: time
     timeframes: [
       raw,
@@ -113,6 +120,12 @@ view: due_diligence_fullfilled_orders {
   dimension: unit_quantity {
     type: number
     sql: ${TABLE}.unit_quantity ;;
+    hidden: yes
+  }
+
+  measure: units {
+    type: sum
+    sql: ${unit_quantity} ;;
   }
 
   dimension_group: updated {
@@ -131,6 +144,7 @@ view: due_diligence_fullfilled_orders {
   }
 
   dimension: walk_folder_id {
+    label: "Unit Walk Folder ID"
     type: number
     sql: ${TABLE}.walk_folder_id ;;
   }
