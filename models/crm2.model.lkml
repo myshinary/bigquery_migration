@@ -215,6 +215,12 @@ explore: hub_customers {
     type: left_outer
   }
 
+  join: customer_cs_pulse_metric_details {
+    sql_on: ${customers.id} = ${customer_cs_pulse_metric_details.customer_id};;
+    relationship: one_to_many
+    type: left_outer
+  }
+
   join: approximate_transaction_renewals {
     sql_on: ${customers.saasoptics_id} = ${approximate_transaction_renewals.so_customer_id};;
     relationship: one_to_one

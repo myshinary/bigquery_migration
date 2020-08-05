@@ -17,11 +17,13 @@ view: customer_cs_pulse_metric_details {
   dimension: customer_id {
     type: number
     sql: ${TABLE}.customer_id ;;
+    hidden: yes
   }
 
   dimension: customer_name {
     type: string
     sql: ${TABLE}.customer_name ;;
+    hidden: yes
   }
 
   dimension: employee_email {
@@ -32,6 +34,7 @@ view: customer_cs_pulse_metric_details {
   dimension: employee_id {
     type: number
     sql: ${TABLE}.employee_id ;;
+    hidden: yes
   }
 
   dimension: employee_name {
