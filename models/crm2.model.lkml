@@ -228,15 +228,3 @@ explore: hub_customers {
   }
 
 }
-
-explore: net_retention {
-  from: root_customer_net_retention
-  view_name: root_customer_net_retention
-  label: "Net Retention"
-  persist_for: "24 hour"
-  #description: "Which customers have what product(s), how much do they pay, who's assigned to their account(s), and what have they been tagged with"
-  fields: [ALL_FIELDS*]
-
-  #sql_always_where: ${aln.apartments.status_id} != 15
-  #  ;;
-  }

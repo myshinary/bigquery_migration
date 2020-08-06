@@ -1,5 +1,5 @@
 view: root_customer_net_retention {
-  view_label: "MRR"
+  view_label: "Retention"
   derived_table: {
     sql:
     WITH customer_active_dates AS (
@@ -51,6 +51,7 @@ view: root_customer_net_retention {
   }
 
   dimension: net_retention {
+    label: "Net Dollar Retention"
     type: number
     sql: ${end_mrr}/${start_mrr} ;;
     value_format: "0.00"
