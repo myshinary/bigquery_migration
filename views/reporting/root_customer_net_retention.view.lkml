@@ -2,31 +2,88 @@ view: root_customer_net_retention {
   view_label: "Retention"
   derived_table: {
     sql:
+
     WITH customer_active_dates AS (
-      SELECT root_so_customer_id, MIN(original_started_on) first_started_on, MAX(original_ended_on) as last_ended_on
+      SELECT root_so_customer_id, MIN(original_started_on) start_date, MAX(original_ended_on) as end_date
       FROM ${finance_normalized_line_items.SQL_TABLE_NAME}
       WHERE is_so_item_recurring
-      --AND product_group_name = 'Happy Inspector'
+      AND {% condition products %} product_group_name {% endcondition %}
       GROUP BY 1
       ),
 
-      net_customer_list AS (
-      SELECT root_so_customer_id, CAST({% parameter start_date %} AS DATE) as start_date, CAST({% parameter end_date %} AS DATE) as end_date
+      date_arrays AS (
+      SELECT root_so_customer_id, start_date, end_date, GENERATE_DATE_ARRAY(start_date, end_date, INTERVAL 1 DAY) as dates
+      --FROM net_customer_list
       FROM customer_active_dates
-      WHERE (first_started_on <= CAST({% parameter start_date %} AS DATE) AND last_ended_on >= CAST({% parameter end_date %} AS DATE))
       ),
 
-      start_mrr AS (
-      SELECT SUM(daily_mrr) as mrr
+      unnest_date_arrays AS (
+      SELECT date,
+
+      {% if root_customer_net_retention.date_year._in_query %}
+        DATE_TRUNC(DATE_ADD(date, INTERVAL 1 YEAR),DAY) as future_date,
+      {% elsif root_customer_net_retention.date_quarter._in_query %}
+        DATE_TRUNC(DATE_ADD(date, INTERVAL 1 QUARTER),DAY) as future_date,
+      {% elsif root_customer_net_retention.date_month._in_query %}
+        DATE_TRUNC(DATE_ADD(date, INTERVAL 1 MONTH),DAY) as future_date,
+      {% else %}
+        DATE_TRUNC(DATE_ADD(date, INTERVAL 1 YEAR),DAY) as future_date,
+      {% endif %}
+
+      root_so_customer_id
+      FROM date_arrays, UNNEST(dates) as date
+      ),
+
+      connect_with_past AS (
+      SELECT x.date as date_past, y.date as date_current, y.root_so_customer_id as customer_current, x.root_so_customer_id as customer_past
+      FROM unnest_date_arrays x
+      LEFT JOIN unnest_date_arrays y
+      ON (x.future_date = y.date AND x.root_so_customer_id = y.root_so_customer_id)
+      ),
+
+      sum_mrr_to_parent AS (
+      SELECT date, parent_id, SUM(daily_mrr) as mrr
       FROM ${daily_mrr_by_customer_product.SQL_TABLE_NAME}
-      WHERE date = (SELECT DISTINCT start_date FROM net_customer_list)
-      AND parent_id IN (SELECT root_so_customer_id FROM net_customer_list)
+      GROUP BY 1,2
+      ),
+
+      find_start_and_end_mrr AS (
+      SELECT date,
+
+      {% if root_customer_net_retention.date_year._in_query %}
+        DATE_TRUNC(date,YEAR) as date_interval,
+      {% elsif root_customer_net_retention.date_quarter._in_query %}
+        DATE_TRUNC(date,QUARTER) as date_interval,
+      {% elsif root_customer_net_retention.date_month._in_query %}
+        DATE_TRUNC(date,MONTH) as date_interval,
+      {% else %}
+        date as date_interval,
+      {% endif %}
+
+      start_mrr, end_mrr
+      FROM
+      (SELECT c.date_current as date, SUM(mp.mrr) as start_mrr, SUM(mc.mrr) as end_mrr
+      FROM connect_with_past c
+      LEFT JOIN sum_mrr_to_parent mc
+      ON (c.customer_current = mc.parent_id AND c.date_current = mc.date)
+      LEFT JOIN sum_mrr_to_parent mp
+      ON (c.customer_past = mp.parent_id AND c.date_past = mp.date)
+      GROUP BY 1) x1
+      WHERE start_mrr > 0
+      AND date <= current_date
+      ORDER BY 1
+      ),
+
+      find_date_frame AS (
+      SELECT date_interval, MIN(date) as date
+      FROM find_start_and_end_mrr
+      GROUP BY 1
       )
 
-      SELECT (SELECT mrr FROM start_mrr) as start_mrr, SUM(daily_mrr) end_mrr
-      FROM bi.daily_mrr_by_customer_product
-      WHERE date = (SELECT DISTINCT end_date FROM net_customer_list)
-      AND parent_id IN (SELECT root_so_customer_id FROM net_customer_list);;
+      SELECT date, date_interval, start_mrr, end_mrr
+      FROM find_start_and_end_mrr
+      WHERE date IN (SELECT date FROM find_date_frame)
+      ;;
   }
 
   dimension: root_so_customer_id {
@@ -55,19 +112,44 @@ view: root_customer_net_retention {
     type: number
     sql: ${end_mrr}/${start_mrr} ;;
     value_format: "0.00"
-    description: "Use Start and End date Filters"
+    description: "Use with date_date"
   }
 
-  parameter: start_date {
-    type: date
-    group_label: "Date Range"
-    default_value: "2019-01-01"
+  dimension_group: date {
+    type: time
+    timeframes: [
+      date,
+      month,
+      quarter,
+      year
+    ]
+    convert_tz: no
+    datatype: date
+    sql: ${TABLE}.date ;;
   }
 
-  parameter: end_date {
-    type: date
-    group_label: "Date Range"
-    default_value: "2020-01-01"
+  parameter: products {
+    type: unquoted
+    allowed_value: {
+      label: "Inspector"
+      value: "Happy Inspector"
+    }
+    allowed_value: {
+      label: "Tasks"
+      value: "Happy Tasks"
+    }
+    allowed_value: {
+      label: "Insights"
+      value: "Insights"
+    }
+    allowed_value: {
+      label: "Optigo"
+      value: "Optigo"
+    }
+    allowed_value: {
+      label: "Subscription"
+      value: "DD Subscription"
+    }
   }
 
 }
