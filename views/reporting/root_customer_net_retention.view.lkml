@@ -44,6 +44,7 @@ view: root_customer_net_retention {
       sum_mrr_to_parent AS (
       SELECT date, parent_id, SUM(daily_mrr) as mrr
       FROM ${daily_mrr_by_customer_product.SQL_TABLE_NAME}
+      WHERE {% condition products %} product {% endcondition %}
       GROUP BY 1,2
       ),
 
