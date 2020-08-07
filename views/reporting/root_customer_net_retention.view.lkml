@@ -18,19 +18,7 @@ view: root_customer_net_retention {
       ),
 
       unnest_date_arrays AS (
-      SELECT date,
-
-      {% if root_customer_net_retention.date_year._in_query %}
-        DATE_TRUNC(DATE_ADD(date, INTERVAL 1 YEAR),DAY) as future_date,
-      {% elsif root_customer_net_retention.date_quarter._in_query %}
-        DATE_TRUNC(DATE_ADD(date, INTERVAL 1 QUARTER),DAY) as future_date,
-      {% elsif root_customer_net_retention.date_month._in_query %}
-        DATE_TRUNC(DATE_ADD(date, INTERVAL 1 MONTH),DAY) as future_date,
-      {% else %}
-        DATE_TRUNC(DATE_ADD(date, INTERVAL 1 YEAR),DAY) as future_date,
-      {% endif %}
-
-      root_so_customer_id
+      SELECT date, DATE_TRUNC(DATE_ADD(date, INTERVAL 1 {% parameter interval %}),DAY) as future_date, root_so_customer_id
       FROM date_arrays, UNNEST(dates) as date
       ),
 
@@ -151,6 +139,23 @@ view: root_customer_net_retention {
     convert_tz: no
     datatype: date
     sql: ${TABLE}.date ;;
+  }
+
+  parameter: interval {
+    type: unquoted
+    allowed_value: {
+      label: "Annual"
+      value: "YEAR"
+    }
+    allowed_value: {
+      label: "Quarterly"
+      value: "QUARTER"
+    }
+    allowed_value: {
+      label: "Monthly"
+      value: "Month"
+    }
+    default_value: "YEAR"
   }
 
   parameter: products {
