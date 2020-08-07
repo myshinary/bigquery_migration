@@ -98,6 +98,7 @@ view: root_customer_net_retention {
     sql: ${TABLE}.start_mrr ;;
     value_format: "$#,##0;($#,##0)"
     group_label: "MRR"
+    hidden: yes
   }
 
   dimension: end_mrr {
@@ -105,14 +106,37 @@ view: root_customer_net_retention {
     sql: ${TABLE}.end_mrr ;;
     value_format: "$#,##0;($#,##0)"
     group_label: "MRR"
+    hidden: yes
   }
 
-  dimension: net_retention {
+  dimension: net_retention_dimension {
     label: "Net Dollar Retention"
     type: number
     sql: ${end_mrr}/${start_mrr} ;;
     value_format: "0.00"
-    description: "Use with date_date"
+    hidden: yes
+  }
+
+  measure: mrr {
+    label: "MRR"
+    type: sum
+    sql: ${end_mrr} ;;
+    value_format: "$#,##0;($#,##0)"
+    group_label: "MRR"
+  }
+
+  measure: mrr_previous {
+    label: "Previous MRR"
+    type: sum
+    sql: ${start_mrr} ;;
+    value_format: "$#,##0;($#,##0)"
+    group_label: "MRR"
+  }
+
+  measure: net_retention {
+    type: average
+    sql: ${net_retention_dimension} ;;
+    value_format: "0.00"
   }
 
   dimension_group: date {
