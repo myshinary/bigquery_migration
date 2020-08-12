@@ -30,14 +30,20 @@ view: root_customer_net_retention {
       ),
 
       sum_mrr_to_parent AS (
-      SELECT date, parent_id, SUM(daily_mrr) as mrr
+      SELECT date, parent_id, mrr, mrr_segment_by_start,
+      CASE WHEN max_mrr < 500 THEN '1. <500' WHEN max_mrr BETWEEN 500 AND 3000 THEN '2. 500-3,000' ELSE '3. >3,000' END as mrr_segment_by_max
+      FROM
+      (SELECT date, parent_id, mrr, MAX(mrr) OVER (PARTITION BY parent_id) as max_mrr,
+      CASE WHEN mrr < 500 THEN '1. <500' WHEN mrr BETWEEN 500 AND 3000 THEN '2. 500-3,000' ELSE '3. >3,000' END as mrr_segment_by_start
+      FROM
+      (SELECT date, parent_id, SUM(daily_mrr) as mrr
       FROM ${daily_mrr_by_customer_product.SQL_TABLE_NAME}
       WHERE {% condition products %} product {% endcondition %}
-      GROUP BY 1,2
+      GROUP BY 1,2) x) x2
       ),
 
       find_start_and_end_mrr AS (
-      SELECT date,
+      SELECT date, customer_id, mrr_segment_by_start, mrr_segment_by_max,
 
       {% if root_customer_net_retention.date_year._in_query %}
         DATE_TRUNC(date,YEAR) as date_interval,
@@ -51,13 +57,12 @@ view: root_customer_net_retention {
 
       start_mrr, end_mrr
       FROM
-      (SELECT c.date_current as date, SUM(mp.mrr) as start_mrr, SUM(mc.mrr) as end_mrr
+      (SELECT c.date_current as date, c.customer_current as customer_id, mp.mrr_segment_by_start, mp.mrr_segment_by_max, mp.mrr as start_mrr, mc.mrr as end_mrr
       FROM connect_with_past c
       LEFT JOIN sum_mrr_to_parent mc
       ON (c.customer_current = mc.parent_id AND c.date_current = mc.date)
       LEFT JOIN sum_mrr_to_parent mp
-      ON (c.customer_past = mp.parent_id AND c.date_past = mp.date)
-      GROUP BY 1) x1
+      ON (c.customer_past = mp.parent_id AND c.date_past = mp.date)) x1
       WHERE start_mrr > 0
       AND date <= current_date
       ORDER BY 1
@@ -69,15 +74,15 @@ view: root_customer_net_retention {
       GROUP BY 1
       )
 
-      SELECT date, date_interval, start_mrr, end_mrr
+      SELECT date, date_interval, customer_id, mrr_segment_by_start, mrr_segment_by_max, start_mrr, end_mrr
       FROM find_start_and_end_mrr
       WHERE date IN (SELECT date FROM find_date_frame)
       ;;
   }
 
-  dimension: root_so_customer_id {
+  dimension: customer_id {
     type: string
-    sql: ${TABLE}.root_so_customer_id ;;
+    sql: ${TABLE}.customer_id ;;
     primary_key: yes
     hidden: yes
   }
@@ -87,7 +92,25 @@ view: root_customer_net_retention {
     sql: ${TABLE}.start_mrr ;;
     value_format: "$#,##0;($#,##0)"
     group_label: "MRR"
-    hidden: yes
+    #hidden: yes
+  }
+
+  dimension: mrr_segment_by_max {
+    label: "by Max MRR"
+    type: string
+    sql: ${TABLE}.mrr_segment_by_max ;;
+    view_label: "Customer"
+    group_label: "MRR Segment"
+    description: "MRR amount at peak of Customer's Revenue"
+  }
+
+  dimension: mrr_segment_by_start {
+    label: "by Start MRR"
+    type: string
+    sql: ${TABLE}.mrr_segment_by_start ;;
+    view_label: "Customer"
+    group_label: "MRR Segment"
+    description: "MRR amount at start of Net Retention calculation"
   }
 
   dimension: end_mrr {
@@ -112,6 +135,7 @@ view: root_customer_net_retention {
     sql: ${end_mrr} ;;
     value_format: "$#,##0;($#,##0)"
     group_label: "MRR"
+    drill_fields: [customers.name,customers.hub_customer_link,start_mrr,end_mrr]
   }
 
   measure: mrr_previous {

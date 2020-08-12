@@ -22,4 +22,10 @@ explore: net_retention {
 
   #sql_always_where: ${aln.apartments.status_id} != 15
   #  ;;
+
+  join: customers {
+    sql_on: ${root_customer_net_retention.customer_id} = ${customers.saasoptics_id} ;;
+    relationship: many_to_one
+    type: left_outer
+  }
 }
