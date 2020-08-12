@@ -135,7 +135,7 @@ view: root_customer_net_retention {
     sql: ${end_mrr} ;;
     value_format: "$#,##0;($#,##0)"
     group_label: "MRR"
-    drill_fields: [customers.name,customers.hub_customer_link,start_mrr,end_mrr]
+    drill_fields: [customers.name,customers.hub_customer_link,start_mrr,end_mrr,net_retention]
   }
 
   measure: mrr_previous {
@@ -150,6 +150,7 @@ view: root_customer_net_retention {
     type: average
     sql: ${net_retention_dimension} ;;
     value_format: "0.00"
+    drill_fields: [customers.name,customers.hub_customer_link,start_mrr,end_mrr,net_retention]
   }
 
   dimension_group: date {
