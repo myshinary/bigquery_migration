@@ -31,10 +31,10 @@ view: root_customer_net_retention {
 
       sum_mrr_to_parent AS (
       SELECT date, parent_id, mrr, mrr_segment_by_start,
-      CASE WHEN max_mrr < 500 THEN '1. <500' WHEN max_mrr BETWEEN 500 AND 3000 THEN '2. 500-3,000' ELSE '3. >3,000' END as mrr_segment_by_max
+      CASE WHEN max_mrr < 500 THEN '1. <$500' WHEN max_mrr BETWEEN 500 AND 3000 THEN '2. $500-$3,000' ELSE '3. >$3,000' END as mrr_segment_by_max
       FROM
       (SELECT date, parent_id, mrr, MAX(mrr) OVER (PARTITION BY parent_id) as max_mrr,
-      CASE WHEN mrr < 500 THEN '1. <500' WHEN mrr BETWEEN 500 AND 3000 THEN '2. 500-3,000' ELSE '3. >3,000' END as mrr_segment_by_start
+      CASE WHEN mrr < 500 THEN '1. <$500' WHEN mrr BETWEEN 500 AND 3000 THEN '2. $500-$3,000' ELSE '3. >$3,000' END as mrr_segment_by_start
       FROM
       (SELECT date, parent_id, SUM(daily_mrr) as mrr
       FROM ${daily_mrr_by_customer_product.SQL_TABLE_NAME}
