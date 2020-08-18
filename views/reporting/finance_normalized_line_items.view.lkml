@@ -144,9 +144,15 @@ view: finance_normalized_line_items {
     hidden:yes
   }
 
+  dimension: current_mrr_dimension {
+    type: number
+    sql: CASE WHEN (current_date >= ${finance_normalized_line_items.original_started_date} AND current_date <=  ${finance_normalized_line_items.original_ended_date}) THEN ${mrr_dimension} ELSE NULL END ;;
+    hidden: yes
+  }
+
   measure: current_mrr {
     type: sum
-    sql: CASE WHEN (current_date >= ${finance_normalized_line_items.original_started_date} AND current_date <=  ${finance_normalized_line_items.original_ended_date}) THEN ${mrr_dimension} ELSE NULL END ;;
+    sql: ${current_mrr_dimension} ;;
     label: "Current MRR"
     group_label: "Finances"
     value_format: "$#,##0;($#,##0)"

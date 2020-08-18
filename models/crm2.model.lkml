@@ -227,4 +227,10 @@ explore: hub_customers {
     type: left_outer
   }
 
+  join: fnli_current_mrr_by_root_so_customer {
+    sql_on: ${customers.saasoptics_id} = ${fnli_current_mrr_by_root_so_customer.root_so_customer_id};;
+    relationship: one_to_many
+    type: left_outer
+  }
+
 }
