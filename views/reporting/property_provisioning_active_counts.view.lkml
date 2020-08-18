@@ -71,18 +71,18 @@ view: property_provisioning_active_counts {
     group_label: "Active Counts"
   }
 
-  dimension: hub_customer_link {
-    type: string
-    sql: ${TABLE}.hub_customer_link ;;
-    hidden: yes
-  }
+  #dimension: hub_customer_link {
+  #  type: string
+  #  sql: ${TABLE}.hub_customer_link ;;
+  #  hidden: yes
+  #}
 
-  dimension: hub_customer {
-    label: "Customer"
-    sql: ${hub_customer_link} ;;
-    html: <a href="{{ value }}" target="_blank">{{ customer_id }} <img src="https://storage.googleapis.com/happyco-downloadable-assets/bi/public/external-link.png" style=" width: 8px; height: 8px; display: inline-block;" /></a> ;;
-    group_label: "HUB Links"
-  }
+  #dimension: hub_customer {
+  #  label: "Customer"
+  #  sql: ${hub_customer_link} ;;
+  #  html: <a href="{{ value }}" target="_blank">{{ customer_id }} <img src="https://storage.googleapis.com/happyco-downloadable-assets/bi/public/external-link.png" style=" width: 8px; height: 8px; display: inline-block;" /></a> ;;
+  #  group_label: "HUB Links"
+  #}
 
   dimension: invoice_billed_on {
     label: "Billed On"
@@ -128,6 +128,7 @@ view: property_provisioning_active_counts {
     sql: ${provisioning_plan_link} ;;
     html: <a href="{{ value }}" target="_blank">{{ id }} <img src="https://storage.googleapis.com/happyco-downloadable-assets/bi/public/external-link.png" style=" width: 8px; height: 8px; display: inline-block;" /></a> ;;
     group_label: "HUB Links"
+    view_label: "Customer"
   }
 
   dimension_group: updated {

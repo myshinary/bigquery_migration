@@ -17,6 +17,8 @@ view: fnli_current_mrr_by_root_so_customer {
   dimension: current_mrr_by_parent {
     type: number
     sql: ${TABLE}.current_mrr ;;
+    value_format: "$#,##0;($#,##0)"
+    label: "Current MRR"
     hidden: yes
   }
 }

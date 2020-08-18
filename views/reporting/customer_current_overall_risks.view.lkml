@@ -36,16 +36,18 @@ view: customer_current_overall_risks {
   dimension: mrr_at_risk_dimension {
     type: number
     sql: ${overall_risk}*${fnli_current_mrr_by_root_so_customer.current_mrr_by_parent}/100 ;;
-    hidden: no
+    hidden: yes
   }
 
   measure: mrr_at_risk {
     type: sum_distinct
     sql_distinct_key: ${customer_id} ;;
     sql: ${mrr_at_risk_dimension} ;;
+    description: "Current MRR * (Risk Score as a percentage). Ex. $1,000 with a risk score of 90 will have $900 MRR at Risk."
     value_format: "$#,##0;($#,##0)"
     label: "MRR at Risk"
     group_label: "CS"
+    drill_fields: [customers.parent,overall_risk,customers.hub_customer_link,mrr_at_risk,fnli_current_mrr_by_root_so_customer.current_mrr_by_parent,customer_owners.empoyee_names]
   }
 
   #measure: count {

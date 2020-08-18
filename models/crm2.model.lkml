@@ -162,7 +162,7 @@ explore: hub_customers {
   label: "HUB Customers"
   persist_for: "24 hour"
   description: "Which customers have what product(s), how much do they pay, who's assigned to their account(s), and what have they been tagged with"
-  fields: [ALL_FIELDS*, -customers.hub_customer_link]
+  fields: [ALL_FIELDS*]
 
   #sql_always_where: ${aln.apartments.status_id} != 15
   #  ;;
