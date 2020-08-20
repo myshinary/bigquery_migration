@@ -125,7 +125,7 @@ view: root_customer_net_retention {
     label: "Net Dollar Retention"
     type: number
     sql: SUM(${end_mrr})/SUM(${start_mrr}) ;;
-    value_format: "0.00"
+    value_format: "0.00%"
     drill_fields: [customers.name,customers.hub_customer_link,start_mrr,end_mrr,net_retention]
   }
 
