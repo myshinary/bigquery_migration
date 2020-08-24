@@ -2,7 +2,7 @@ view: customer_current_overall_risks {
   sql_table_name: `happyco-internal-systems.hub__reporting.customer_current_overall_risks`
     ;;
 
-    view_label: "HUB"
+    view_label: "Account Management"
   drill_fields: [id]
 
   dimension: id {

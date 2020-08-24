@@ -3,7 +3,7 @@ view: customer_cs_pulse_metric_details {
     ;;
   drill_fields: [id]
 
-  view_label: "HUB"
+  view_label: "Account Management"
 
   dimension: id {
     primary_key: yes

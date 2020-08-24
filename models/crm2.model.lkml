@@ -233,4 +233,10 @@ explore: hub_customers {
     type: left_outer
   }
 
+  join: product_environment_nps_responses {
+    sql_on: ${product_environments.id} = ${product_environment_nps_responses.product_environment_id} ;;
+    relationship: one_to_many
+    type: left_outer
+  }
+
 }

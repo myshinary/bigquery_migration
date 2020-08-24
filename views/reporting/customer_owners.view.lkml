@@ -1,7 +1,7 @@
 view: customer_owners {
   sql_table_name: `happyco-internal-systems.hub__reporting.customer_owners`
     ;;
-    view_label: "HUB"
+    view_label: "Account Management"
   drill_fields: [id]
 
   dimension: id {
