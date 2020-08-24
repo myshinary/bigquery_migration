@@ -50,7 +50,7 @@ view: properties_order_line_items {
 
   dimension:price_per_unit_dimension {
     type: number
-    sql: ${mrr_dimension}/${unit_count};;
+    sql: ${mrr_dimension}/NULLIF(${unit_count},0);;
     hidden: yes
     group_label: "Revenue"
   }
