@@ -19,6 +19,9 @@ view: fnli_current_mrr_by_root_so_customer {
     sql: ${TABLE}.current_mrr ;;
     value_format: "$#,##0;($#,##0)"
     label: "Current MRR"
-    hidden: yes
+    description: "Current MRR of the top Parent Customer"
+    hidden: no
+    view_label: "HUB"
+    group_label: "Finances"
   }
 }
