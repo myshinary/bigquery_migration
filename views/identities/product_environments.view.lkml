@@ -72,6 +72,12 @@ view: product_environments {
     hidden: no
   }
 
+  measure: happy_business_ids {
+    label: "HappyCo Business IDs"
+    type: string
+    sql: STRING_AGG(DISTINCT CAST(${happy_business_id} AS STRING),', ') ;;
+  }
+
   dimension: happy_business_link_html {
     sql: 'https://manage.happyco.com/admin/businesses/'||CAST(${happy_business_id} AS STRING);;
     hidden: yes
