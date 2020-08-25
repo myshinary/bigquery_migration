@@ -1,7 +1,7 @@
 view: customer_owners {
   sql_table_name: `happyco-internal-systems.hub__reporting.customer_owners`
     ;;
-    view_label: "HUB"
+    view_label: "Account Management"
   drill_fields: [id]
 
   dimension: id {
@@ -67,7 +67,7 @@ view: customer_owners {
     group_label: "Account Managers"
   }
 
-  measure: empoyee_names {
+  measure: employee_names {
     type: string
     sql: STRING_AGG(DISTINCT ${employee_name},', ') ;;
     description: "For use when pivoting on Employee Role"

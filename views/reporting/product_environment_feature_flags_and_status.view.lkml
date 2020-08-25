@@ -133,14 +133,14 @@ view: product_environment_feature_flags_and_status {
   dimension: plan_name {
     type: string
     sql: ${TABLE}.plan_name ;;
-    view_label: "HappyCo"
+    view_label: "Customer"
     group_label: "Admin Plan"
   }
 
   dimension: plan_status {
     type: string
     sql: ${TABLE}.plan_status ;;
-    view_label: "HappyCo"
+    view_label: "Customer"
     group_label: "Admin Plan"
   }
 

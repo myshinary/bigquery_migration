@@ -3,15 +3,21 @@ view: customer_cs_pulse_metric_details {
     ;;
   drill_fields: [id]
 
+  view_label: "Account Management"
+
   dimension: id {
     primary_key: yes
     type: number
     sql: ${TABLE}.id ;;
+    hidden: yes
   }
 
   dimension: calendar_week_number {
+    label: "Week Number"
     type: number
     sql: ${TABLE}.calendar_week_number ;;
+    group_label: "CS"
+    description: "Used for Pulse Metrics Reporting"
   }
 
   dimension: customer_id {
@@ -29,6 +35,9 @@ view: customer_cs_pulse_metric_details {
   dimension: employee_email {
     type: string
     sql: ${TABLE}.employee_email ;;
+    group_label: "CS"
+    hidden: yes
+    #hidden until requested
   }
 
   dimension: employee_id {
@@ -38,32 +47,32 @@ view: customer_cs_pulse_metric_details {
   }
 
   dimension: employee_name {
+    label: "Customer Update Posted by"
     type: string
     sql: ${TABLE}.employee_name ;;
+    group_label: "CS"
   }
 
   dimension: four_week_group_number {
+    label: "Week Group Number"
     type: number
     sql: ${TABLE}.four_week_group_number ;;
+    group_label: "CS"
+    description: "Number of week per every 4 weeks, used for Pulse Metrics Reporting"
   }
 
-  dimension_group: start_of_week {
-    type: time
-    timeframes: [
-      raw,
-      date,
-      week,
-      month,
-      quarter,
-      year
-    ]
+  dimension: start_of_week {
+    label: "Week"
+    type: date
     convert_tz: no
     datatype: date
     sql: ${TABLE}.start_of_week ;;
+    group_label: "CS"
+    description: "Used for Pulse Metrics Reporting"
   }
 
-  measure: count {
-    type: count
-    drill_fields: [id, employee_name, customer_name]
-  }
+  #measure: count {
+  #  type: count
+  #  drill_fields: [id, employee_name, customer_name]
+  #}
 }

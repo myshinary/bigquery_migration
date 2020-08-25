@@ -162,13 +162,13 @@ explore: hub_customers {
   label: "HUB Customers"
   persist_for: "24 hour"
   description: "Which customers have what product(s), how much do they pay, who's assigned to their account(s), and what have they been tagged with"
-  fields: [ALL_FIELDS*, -customers.hub_customer_link]
+  fields: [ALL_FIELDS*]
 
   #sql_always_where: ${aln.apartments.status_id} != 15
   #  ;;
 
   join: finance_normalized_line_items {
-    sql_on: ${customers.saasoptics_id} = ${finance_normalized_line_items.so_customer_id};;
+    sql_on: ${customers.saasoptics_id} = ${finance_normalized_line_items.root_so_customer_id};;
     relationship: one_to_many
     type: left_outer
   }
@@ -224,6 +224,18 @@ explore: hub_customers {
   join: approximate_transaction_renewals {
     sql_on: ${customers.saasoptics_id} = ${approximate_transaction_renewals.so_customer_id};;
     relationship: one_to_one
+    type: left_outer
+  }
+
+  join: fnli_current_mrr_by_root_so_customer {
+    sql_on: ${customers.saasoptics_id} = ${fnli_current_mrr_by_root_so_customer.root_so_customer_id};;
+    relationship: one_to_many
+    type: left_outer
+  }
+
+  join: product_environment_nps_responses {
+    sql_on: ${product_environments.id} = ${product_environment_nps_responses.product_environment_id} ;;
+    relationship: one_to_many
     type: left_outer
   }
 
