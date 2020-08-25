@@ -5,10 +5,11 @@ view: customers {
   drill_fields: [id]
 
   dimension: id {
+    label: "Hub Customer ID"
     primary_key: yes
     type: number
     sql: ${TABLE}.id ;;
-    hidden: yes
+    #hidden: yes
     #not currently bringing in hierarchy as joins to revenue are simpler at the parent level
   }
 
