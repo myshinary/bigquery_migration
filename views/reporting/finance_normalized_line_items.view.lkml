@@ -219,6 +219,12 @@ view: finance_normalized_line_items {
     hidden: yes
   }
 
+  measure: customer_since {
+    type: string
+    sql: FORMAT_DATE("%B %d, %Y", ${customer_started}) ;;
+    hidden: no
+  }
+
   measure: customer_age_in_months {
     type: number
     sql: DATE_DIFF(current_date,${customer_started},MONTH) ;;
