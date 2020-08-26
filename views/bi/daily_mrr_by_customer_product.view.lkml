@@ -172,7 +172,11 @@ view: daily_mrr_by_customer_product {
     sql: ${daily_mrr_dimension} ;;
     label: "Daily MRR"
     value_format: "$#,##0;($#,##0)"
-    drill_fields: [mrr_drill*]
+    drill_fields: [date_date,product,daily_mrr]
+    link: {
+      label: "Daily MRR per Product"
+      url: "{{link}}&pivots=daily_mrr_by_customer_product.product"
+    }
 
   }
 
@@ -229,8 +233,23 @@ view: daily_mrr_by_customer_product {
     label: "MRR"
     sql: ${mrr_dimension} ;;
     value_format: "$#,##0;($#,##0)"
-    drill_fields: [change_drill*]
+    drill_fields: [mrr_drill*]
     group_label: "MRR Change"
+  }
+
+  measure: mrr2 {
+    #mrr used for 2nd level drill
+    type: sum
+    label: "MRR"
+    sql: ${mrr_dimension} ;;
+    value_format: "$#,##0;($#,##0)"
+    group_label: "MRR Change"
+    hidden: yes
+    drill_fields: [date_date,product,daily_mrr]
+    link: {
+      label: "Daily MRR per Product"
+      url: "{{link}}&pivots=daily_mrr_by_customer_product.product"
+      }
   }
 
   measure: count {
@@ -257,7 +276,7 @@ view: daily_mrr_by_customer_product {
     #renamed as customer field because not currently bringing in hierarchy as joins to revenue are simpler at the parent level
   }
 
-  set: mrr_drill {
+  set: change_drill {
     fields: [
       date_date,
       daily_mrr,
@@ -274,18 +293,11 @@ view: daily_mrr_by_customer_product {
     ]
   }
 
-  set: change_drill {
+  set: mrr_drill {
     fields: [
-      date_date,
-      saasoptics_customer_private_data.name,
-      parent_new,
-      product_new,
-      parent_expansion,
-      product_expansion,
-      parent_contraction,
-      product_contraction,
-      parent_lost,
-      product_lost
+      customers.parent,
+      customers.hub_customer_link,
+      mrr2
 
     ]
   }
