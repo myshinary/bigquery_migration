@@ -70,6 +70,7 @@ view: product_environments {
     type: number
     sql: ${TABLE}.happy_business_id ;;
     hidden: no
+    group_label: "HappyCo"
   }
 
   measure: happy_business_ids {
@@ -86,7 +87,8 @@ view: product_environments {
   dimension: happy_business_link {
     sql: ${happy_business_link_html} ;;
     html: <a href="{{ value }}" target="_blank">{{ happy_business_id }} <img src="https://storage.googleapis.com/happyco-downloadable-assets/bi/public/external-link.png" style=" width: 8px; height: 8px; display: inline-block;" /></a> ;;
-    label: "Admin Link"
+    label: "HappyCo Admin Link"
+    group_label: "HappyCo"
   }
 
   dimension: name {

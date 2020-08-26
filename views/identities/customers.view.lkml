@@ -8,8 +8,8 @@ view: customers {
     primary_key: yes
     type: number
     sql: ${TABLE}.id ;;
-    hidden: yes
-    #not currently bringing in hierarchy as joins to revenue are simpler at the parent level
+    label: "HUB Customer ID"
+    group_label: "HUB"
   }
 
   dimension: hub_customer_link_html {
@@ -21,7 +21,7 @@ view: customers {
     label: "HUB Customer Link"
     sql: ${hub_customer_link_html} ;;
     html: <a href="{{ value }}" target="_blank">{{ id }} <img src="https://storage.googleapis.com/happyco-downloadable-assets/bi/public/external-link.png" style=" width: 8px; height: 8px; display: inline-block;" /></a> ;;
-    group_label: "HUB Links"
+    group_label: "HUB"
   }
 
   dimension: ancestry {
@@ -61,6 +61,7 @@ view: customers {
     type: number
     sql: ${TABLE}.parent_saasoptics_id ;;
     label: "SaasOptics ID"
+    group_label: "SaasOptics"
     #renamed as customer field because not currently bringing in hierarchy as joins to revenue are simpler at the parent level
   }
 
@@ -78,11 +79,13 @@ view: customers {
   dimension: saasoptics_link {
     sql: ${saasoptics_url} ;;
     html: <a href="{{ value }}" target="_blank">{{ saasoptics_id }} <img src="https://storage.googleapis.com/happyco-downloadable-assets/bi/public/external-link.png" style=" width: 8px; height: 8px; display: inline-block;" /></a> ;;
+    group_label: "SaasOptics"
   }
 
   dimension: salesforce_id {
     type: string
     sql: ${TABLE}.salesforce_id ;;
+    group_label: "Salesforce"
   }
 
   measure: count {
