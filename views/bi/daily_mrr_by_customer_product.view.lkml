@@ -233,23 +233,8 @@ view: daily_mrr_by_customer_product {
     label: "MRR"
     sql: ${mrr_dimension} ;;
     value_format: "$#,##0;($#,##0)"
-    drill_fields: [mrr_drill*]
     group_label: "MRR Change"
-  }
-
-  measure: mrr2 {
-    #mrr used for 2nd level drill
-    type: sum
-    label: "MRR"
-    sql: ${mrr_dimension} ;;
-    value_format: "$#,##0;($#,##0)"
-    group_label: "MRR Change"
-    hidden: yes
-    drill_fields: [date_date,product,daily_mrr]
-    link: {
-      label: "Daily MRR per Product"
-      url: "{{link}}&pivots=daily_mrr_by_customer_product.product"
-      }
+    drill_fields: [change_drill*]
   }
 
   measure: count {
@@ -293,12 +278,4 @@ view: daily_mrr_by_customer_product {
     ]
   }
 
-  set: mrr_drill {
-    fields: [
-      customers.parent,
-      customers.hub_customer_link,
-      mrr2
-
-    ]
-  }
 }
