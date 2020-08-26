@@ -6,7 +6,7 @@ view: daily_mrr_by_customer_product {
   dimension: mrr_dimension {
     type: number
     sql: ${TABLE}.mrr ;;
-    hidden: yes
+    hidden: no
   }
 
   dimension: customer {
@@ -174,8 +174,10 @@ view: daily_mrr_by_customer_product {
     value_format: "$#,##0;($#,##0)"
     drill_fields: [date_date,product,daily_mrr]
     link: {
-      label: "Daily MRR per Product"
-      url: "{{link}}&pivots=daily_mrr_by_customer_product.product"
+      label: "Show per Product"
+      url: "
+      {% assign vis_config = '{\"type\": \"Table\",\"table_theme\": \"transparent\"}' %}
+      {{link}}&vis_config={{ vis_config | encode_uri }}&pivots=daily_mrr_by_customer_product.product"
     }
 
   }

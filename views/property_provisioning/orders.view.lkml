@@ -3,7 +3,7 @@ view: orders {
     ;;
   drill_fields: [id]
 
-  view_label: "Customer"
+  view_label: "Property"
 
   dimension: id {
     primary_key: yes
@@ -29,10 +29,9 @@ view: orders {
   }
 
   dimension_group: activated {
+    label: "Property Activated"
     type: time
     timeframes: [
-      raw,
-      time,
       date,
       week,
       month,
@@ -247,7 +246,7 @@ view: orders {
   measure: units_ordered {
     type: sum
     sql: ${unit_quantity} ;;
-    group_label: "Revenue"
+    #group_label: "Revenue"
   }
 
   dimension_group: updated {
@@ -267,6 +266,6 @@ view: orders {
 
   #measure: count {
   #  type: count
-  #  drill_fields: [id, property_name, legal_name, product_environments.name, product_environments.id]
+    #drill_fields: [id, property_name, legal_name, product_environments.name, product_environments.id]
   #}
 }
