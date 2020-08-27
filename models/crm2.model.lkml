@@ -203,8 +203,8 @@ explore: hub_customers {
     type: left_outer
   }
 
-  join: product_environment_feature_flags_and_status {
-    sql_on: ${product_environments.id} = ${product_environment_feature_flags_and_status.product_environment_id} ;;
+  join: product_environment_features_enabled {
+    sql_on: ${product_environments.id} = ${product_environment_features_enabled.product_environment_id} ;;
     relationship: one_to_one
     type: left_outer
   }

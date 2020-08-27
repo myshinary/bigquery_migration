@@ -117,6 +117,7 @@ view: property_provisioning_active_counts_by_product_enivronment {
     sql: ${properties_activated}-${properties_deactivated} ;;
     hidden: no
     drill_fields: [date_date,daily_active_properties]
+    group_label: "Activations"
   }
 
   measure: active_units {
@@ -124,18 +125,53 @@ view: property_provisioning_active_counts_by_product_enivronment {
     sql: ${units_activated}-${units_deactivated} ;;
     hidden: no
     drill_fields: [date_date,daily_active_properties]
+    group_label: "Activations"
   }
 
   measure: daily_active_properties {
     type: sum
     sql: ${daily_active_properties_dimension} ;;
     hidden: no
+    group_label: "Activations"
   }
 
   measure: daily_active_units {
     type: sum
     sql: ${daily_active_units_dimension} ;;
     hidden: no
+    group_label: "Activations"
+  }
+
+  measure: properties_activated_sum {
+    label: "Properties Activated"
+    type: sum
+    sql: ${properties_activated};;
+    hidden: yes
+    group_label: "Activations"
+  }
+
+  measure: units_activated_sum {
+    label: "Units Activated"
+    type: sum
+    sql: ${units_activated};;
+    hidden: yes
+    group_label: "Activations"
+  }
+
+  measure: properties_deactivated_sum {
+    label: "Properties Deactivated"
+    type: sum
+    sql: ${properties_deactivated};;
+    hidden: no
+    group_label: "Activations"
+  }
+
+  measure: units_deactivated_sum {
+    label: "Units Deativated"
+    type: sum
+    sql: ${units_deactivated};;
+    hidden: no
+    group_label: "Activations"
   }
 
 }
