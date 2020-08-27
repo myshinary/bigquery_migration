@@ -245,10 +245,11 @@ explore: hub_customers {
     type: left_outer
   }
 
-  join: price_per_unit_by_product_environment {
-    sql_on: (${product_environments.id} = ${price_per_unit_by_product_environment.product_environment_id} AND ${finance_normalized_line_items.product_group_name} = ${price_per_unit_by_product_environment.product_type}) ;;
-    relationship: many_to_one
-    type: left_outer
-  }
+  #join: price_per_unit_by_product_environment {
+  #  sql_on: (${product_environments.id} = ${price_per_unit_by_product_environment.product_environment_id} AND ${finance_normalized_line_items.product_group_name} = ${price_per_unit_by_product_environment.product_type}) ;;
+  #  relationship: many_to_one
+  #  type: left_outer
+  #escaped until I can figure out proper ppu....
+  #}
 
 }
