@@ -4,6 +4,7 @@ view: daily_mrr_by_customer_product {
     view_label: "MRR"
 
   dimension: mrr_dimension {
+    label: "MRR"
     type: number
     sql: ${TABLE}.mrr ;;
     hidden: no
@@ -228,6 +229,13 @@ view: daily_mrr_by_customer_product {
     value_format: "$#,##0;($#,##0)"
     drill_fields: [change_drill*]
     group_label: "MRR Change"
+  }
+
+  dimension: id {
+    type: string
+    sql: CAST(${date_date} AS STRING)||${customer}||${product} ;;
+    hidden: yes
+    primary_key: yes
   }
 
   measure: mrr {

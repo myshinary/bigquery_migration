@@ -249,9 +249,10 @@ view: finance_normalized_line_items {
   }
 
   dimension: product_group_name {
+    label: "Product"
     type: string
     sql: ${TABLE}.product_group_name ;;
-    hidden: yes
+    hidden: no
   }
 
   dimension: root_so_customer_id {
