@@ -219,6 +219,12 @@ view: finance_normalized_line_items {
     hidden: yes
   }
 
+  measure: customer_since {
+    type: string
+    sql: FORMAT_DATE("%B %d, %Y", ${customer_started}) ;;
+    hidden: no
+  }
+
   measure: customer_age_in_months {
     type: number
     sql: DATE_DIFF(current_date,${customer_started},MONTH) ;;
@@ -243,9 +249,10 @@ view: finance_normalized_line_items {
   }
 
   dimension: product_group_name {
+    label: "Product"
     type: string
     sql: ${TABLE}.product_group_name ;;
-    hidden: yes
+    hidden: no
   }
 
   dimension: root_so_customer_id {

@@ -203,8 +203,8 @@ explore: hub_customers {
     type: left_outer
   }
 
-  join: product_environment_feature_flags_and_status {
-    sql_on: ${product_environments.id} = ${product_environment_feature_flags_and_status.product_environment_id} ;;
+  join: product_environment_features_enabled {
+    sql_on: ${product_environments.id} = ${product_environment_features_enabled.product_environment_id} ;;
     relationship: one_to_one
     type: left_outer
   }
@@ -238,5 +238,18 @@ explore: hub_customers {
     relationship: one_to_many
     type: left_outer
   }
+
+  join: property_provisioning_active_counts_by_product_enivronment {
+    sql_on: ${product_environments.id} = ${property_provisioning_active_counts_by_product_enivronment.product_environment_id} ;;
+    relationship: one_to_many
+    type: left_outer
+  }
+
+  #join: price_per_unit_by_product_environment {
+  #  sql_on: (${product_environments.id} = ${price_per_unit_by_product_environment.product_environment_id} AND ${finance_normalized_line_items.product_group_name} = ${price_per_unit_by_product_environment.product_type}) ;;
+  #  relationship: many_to_one
+  #  type: left_outer
+  #escaped until I can figure out proper ppu....
+  #}
 
 }

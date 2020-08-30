@@ -35,15 +35,15 @@ explore: mrr {
 
   join: product_environments {
     sql_on: ${customers.id} = ${product_environments.customer_id} ;;
-    relationship: many_to_one
+    relationship: one_to_many
     type: left_outer
   }
 
-  join: price_per_unit_by_product_environment {
-    sql_on: ${product_environments.id} = ${price_per_unit_by_product_environment.product_environment_id} ;;
-    relationship: many_to_one
-    type: left_outer
-  }
+  #join: price_per_unit_by_product_environment {
+  #  sql_on: ${product_environments.id} = ${price_per_unit_by_product_environment.product_environment_id} ;;
+  #  relationship: one_to_one
+  #  type: left_outer
+  #}
 
 }
 

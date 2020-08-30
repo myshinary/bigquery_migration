@@ -94,7 +94,9 @@ view: product_environments {
   dimension: name {
     type: string
     sql: ${TABLE}.name ;;
-    hidden: yes
+    label: "HappyCo Business Name"
+    view_label: "Customer"
+    group_label: "HappyCo"
   }
 
   dimension_group: updated {

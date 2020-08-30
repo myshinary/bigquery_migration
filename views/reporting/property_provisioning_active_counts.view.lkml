@@ -115,6 +115,8 @@ view: property_provisioning_active_counts {
     type: string
     sql: ${TABLE}.product_environment_name ;;
     view_label: "Customer"
+    hidden: yes
+    #hidden as it's bringing in the wrong business name
   }
 
   dimension: provisioning_plan_link {
