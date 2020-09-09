@@ -173,6 +173,13 @@ explore: hub_customers {
   #sql_always_where: ${aln.apartments.status_id} != 15
   #  ;;
 
+  join: customer_ancestry {
+    sql_on: ${customers.id} = ${customer_ancestry.root_id};;
+    relationship: one_to_many
+    type: left_outer
+  }
+
+
   join: finance_normalized_line_items {
     sql_on: ${customers.saasoptics_id} = ${finance_normalized_line_items.root_so_customer_id};;
     relationship: one_to_many
@@ -192,7 +199,7 @@ explore: hub_customers {
   }
 
   join: product_environments {
-    sql_on: ${customers.id} = ${product_environments.customer_id} ;;
+    sql_on: ${customer_ancestry.id} = ${product_environments.customer_id} ;;
     relationship: one_to_one
     type: left_outer
   }
