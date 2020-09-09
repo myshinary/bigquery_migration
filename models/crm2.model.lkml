@@ -160,6 +160,12 @@ explore: segmentation {
     type: left_outer
   }
 
+  join: customer_current_risk_segmentation_view {
+    sql_on: ${customers.id} = ${customer_current_risk_segmentation_view.customer_id};;
+    relationship: one_to_one
+    type: left_outer
+  }
+
 }
 
 explore: hub_customers {
