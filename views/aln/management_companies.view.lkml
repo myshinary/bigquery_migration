@@ -7,7 +7,8 @@ view: management_companies {
     primary_key: yes
     type: string
     sql: ${TABLE}.id ;;
-    hidden: yes
+    hidden: no
+    label: "ID"
   }
 
   dimension: name {
@@ -18,7 +19,7 @@ view: management_companies {
   dimension: website {
     type: number
     sql: ${TABLE}.website ;;
-    hidden: yes
+    hidden: no
   }
 
   dimension: market {

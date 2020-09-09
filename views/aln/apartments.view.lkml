@@ -8,7 +8,8 @@ view: apartments {
     primary_key: yes
     type: string
     sql: ${TABLE}.id ;;
-    hidden: yes
+    hidden: no
+    label: "ID"
   }
 
   dimension: agency_raw {

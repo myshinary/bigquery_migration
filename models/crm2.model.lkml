@@ -154,6 +154,12 @@ explore: segmentation {
     type: left_outer
   }
 
+  join: customer_nps_responses {
+    sql_on: ${customers.id} = ${customer_nps_responses.customer_id} ;;
+    relationship: one_to_many
+    type: left_outer
+  }
+
 }
 
 explore: hub_customers {
