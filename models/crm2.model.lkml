@@ -204,6 +204,12 @@ explore: hub_customers {
     type: left_outer
   }
 
+  join: customer_jira_issues {
+    sql_on: ${customers.id} = ${customer_jira_issues.root_customer_id} ;;
+    relationship: one_to_many
+    type: left_outer
+  }
+
   join: product_environments {
     sql_on: ${customer_ancestry.id} = ${product_environments.customer_id} ;;
     relationship: one_to_one
