@@ -74,8 +74,10 @@ view: customer_jira_issues {
   }
 
   dimension: jira_issue_link {
+    label: "Jira Link"
     type: string
     sql: ${TABLE}.jira_issue_link ;;
+    html: <a href="{{ value }}" target="_blank">{{ jira_issue_key }} <img src="https://storage.googleapis.com/happyco-downloadable-assets/bi/public/external-link.png" style=" width: 8px; height: 8px; display: inline-block;" /></a> ;;
   }
 
   dimension: priority {
