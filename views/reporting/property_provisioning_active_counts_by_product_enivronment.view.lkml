@@ -67,6 +67,7 @@ view: property_provisioning_active_counts_by_product_enivronment {
       year
     ]
     sql: CAST(${TABLE}.date AS TIMESTAMP) ;;
+    hidden: yes
   }
 
   dimension: id {

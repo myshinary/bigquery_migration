@@ -99,6 +99,7 @@ view: due_diligence_fullfilled_orders {
   dimension: rent_roll_source {
     type: string
     sql: ${TABLE}.rent_roll_source ;;
+    hidden: yes
   }
 
   dimension_group: started {
@@ -147,6 +148,7 @@ view: due_diligence_fullfilled_orders {
     label: "Unit Walk Folder ID"
     type: number
     sql: ${TABLE}.walk_folder_id ;;
+    hidden: yes
   }
 
   measure: count {

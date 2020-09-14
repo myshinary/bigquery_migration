@@ -1,7 +1,7 @@
 view: customer_ancestry {
   sql_table_name: `happyco-internal-systems.hub__reporting.customer_ancestry`
     ;;
-  view_label: "Customers"
+  view_label: "Customer"
   drill_fields: [id]
 
   dimension: id {
@@ -37,7 +37,7 @@ view: customer_ancestry {
     type: yesno
     sql: ${TABLE}.is_root ;;
     description: "A root customer is the top level customer."
-    group_label: "Customer"
+    #group_label: "Customer"
   }
 
   dimension: parent_id {
