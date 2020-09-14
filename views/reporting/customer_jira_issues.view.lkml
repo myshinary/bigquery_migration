@@ -38,7 +38,7 @@ view: customer_jira_issues {
       quarter,
       year
     ]
-    sql: ${TABLE}.created_at ;;
+    sql: CAST(${TABLE}.created_at AS TIMESTAMP) ;;
   }
 
   dimension: creator_email {
