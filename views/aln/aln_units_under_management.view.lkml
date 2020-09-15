@@ -108,6 +108,20 @@ derived_table: {
     group_label: "TUUM"
   }
 
+  measure: total_units_under_management {
+    label: "Units"
+    type: sum
+    sql: ${TABLE}.units_under_management ;;
+    group_label: "TUUM"
+  }
+
+  measure: total_properties_under_management {
+    label: "Properties"
+    type: sum
+    sql: ${TABLE}.properties_under_management ;;
+    group_label: "TUUM"
+  }
+
   #measure: avg_units_under_management {
   #  type: average
   #  sql: ${units_under_management} ;;

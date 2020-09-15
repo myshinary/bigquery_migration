@@ -172,6 +172,12 @@ explore: segmentation {
     type: left_outer
   }
 
+  join: entity_addresses_management_companies {
+    sql_on: ${management_companies.id} = ${entity_addresses_management_companies.entity_id} ;;
+    relationship: one_to_one
+    type: left_outer
+  }
+
 }
 
 explore: hub_customers {
