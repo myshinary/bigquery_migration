@@ -72,6 +72,12 @@ view: entity_addresses_management_companies {
     group_label: "Market"
   }
 
+  dimension: region {
+    type: string
+    sql: CASE WHEN ${state} IN ('AB','BC','CA','CO','ID','ND','NE','NV','OR','SD','UT','WA') THEN 'NW' WHEN ${state} IN ('AR','AZ','IA','IN','IL','KS','LA','MI','MN','MO','NM','OK','TX','WI') THEN 'SW' WHEN ${state} IN ('AL','FL','GA','KY','MO','NC','OH','SC','TN') THEN 'SE' WHEN ${state} IN ('DC','MA','MD','ME','NH','NJ','NY','ON','PA','QC','VA') THEN 'NE' ELSE NULL END ;;
+    group_label: "Market"
+  }
+
   dimension: postal_code {
     label: "Zip"
     type: string
