@@ -142,6 +142,12 @@ explore: segmentation {
     type: left_outer
   }
 
+  join: due_diligence_fulfilled_orders_amount {
+    sql_on: ${properties.id} = ${due_diligence_fulfilled_orders_amount.real_property_id} ;;
+    relationship: one_to_many
+    type: left_outer
+  }
+
   join: management_company_main_management_type {
     sql_on: ${management_companies.id} = ${management_company_main_management_type.management_company_id} ;;
     relationship: one_to_one
