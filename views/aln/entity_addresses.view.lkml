@@ -65,7 +65,7 @@ view: entity_addresses {
 
   dimension: state {
     type: string
-    sql: UPPER(${TABLE}.state) ;;
+    sql: UPPER(TRIM(${TABLE}.state)) ;;
   }
 
   dimension: postal_code {
