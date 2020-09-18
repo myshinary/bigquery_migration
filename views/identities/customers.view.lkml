@@ -52,6 +52,19 @@ view: customers {
     #renamed as customer field because not currently bringing in hierarchy as joins to revenue are simpler at the parent level
   }
 
+  dimension: customer_dashboard_link_html {
+    sql: 'https://data.happyco.com/dashboards/746?Customer='||${id} ;;
+    hidden: yes
+  }
+
+  dimension: customer_dashboard {
+    label: "Customer Dashboard Link"
+    sql: ${customer_dashboard_link_html} ;;
+    html: <a href="{{ value }}" target="_blank">{{ parent }} <img src="https://storage.googleapis.com/happyco-downloadable-assets/bi/public/external-link.png" style=" width: 8px; height: 8px; display: inline-block;" /></a> ;;
+    group_label: "HUB"
+    hidden: yes
+  }
+
   dimension: parent_id {
     type: number
     sql: ${TABLE}.parent_id ;;
