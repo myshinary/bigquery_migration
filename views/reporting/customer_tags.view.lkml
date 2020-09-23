@@ -36,9 +36,17 @@ view: customer_tags {
     sql: ${TABLE}.tag ;;
   }
 
+  measure: tag_list {
+    label: "List"
+    type: string
+    sql: STRING_AGG(DISTINCT ${tag},', ') ;;
+    group_label: "Tags"
+  }
+
   measure: count {
-    label: "Tags"
+    label: "Count"
     type: count
     #drill_fields: [id]
+    group_label: "Tags"
   }
 }
