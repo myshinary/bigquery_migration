@@ -51,9 +51,11 @@ view: customer_jira_issues {
   }
 
   dimension: creator_name {
+    label: "Jira Issue Created By"
     type: string
     sql: ${TABLE}.creator_name ;;
-    hidden: yes
+    group_label: "Jira Issues"
+#     hidden: yes
   }
 
   dimension: customer_id {
