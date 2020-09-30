@@ -43,7 +43,7 @@ view: root_customer_net_retention {
       ),
 
       find_start_and_end_mrr AS (
-      SELECT date, customer_id, mrr_segment_by_start, mrr_segment_by_max,
+      SELECT date, date_past, customer_id, mrr_segment_by_start, mrr_segment_by_max,
 
       {% if root_customer_net_retention.date_year._in_query %}
         DATE_TRUNC(date,YEAR) as date_interval,
@@ -57,7 +57,7 @@ view: root_customer_net_retention {
 
       start_mrr, end_mrr
       FROM
-      (SELECT c.date_current as date, c.customer_current as customer_id, mp.mrr_segment_by_start, mp.mrr_segment_by_max, mp.mrr as start_mrr, mc.mrr as end_mrr
+      (SELECT c.date_current as date, c.date_past, c.customer_current as customer_id, mp.mrr_segment_by_start, mp.mrr_segment_by_max, mp.mrr as start_mrr, mc.mrr as end_mrr
       FROM connect_with_past c
       LEFT JOIN sum_mrr_to_parent mc
       ON (c.customer_current = mc.parent_id AND c.date_current = mc.date)
@@ -74,16 +74,25 @@ view: root_customer_net_retention {
       GROUP BY 1
       )
 
-      SELECT date, date_interval, customer_id, mrr_segment_by_start, mrr_segment_by_max, start_mrr, end_mrr
+      SELECT date, date_past, date_interval, customer_id, mrr_segment_by_start, mrr_segment_by_max, start_mrr, end_mrr
       FROM find_start_and_end_mrr
       WHERE date_interval IN (SELECT date_interval FROM find_date_frame)
+      AND
+        {% if root_customer_net_retention.date_year._in_query %}
+        DATE_TRUNC(date,YEAR) = date
+      {% elsif root_customer_net_retention.date_quarter._in_query %}
+        DATE_TRUNC(date,QUARTER) = date
+      {% elsif root_customer_net_retention.date_month._in_query %}
+        DATE_TRUNC(date,MONTH) = date
+      {% else %}
+        1=1
+      {% endif %}
       ;;
   }
 
   dimension: customer_id {
     type: string
     sql: ${TABLE}.customer_id ;;
-    primary_key: yes
     hidden: yes
   }
 
@@ -159,6 +168,20 @@ view: root_customer_net_retention {
     convert_tz: no
     datatype: date
     sql: ${TABLE}.date ;;
+  }
+
+  dimension: date_past {
+    type: date
+    convert_tz: no
+    sql: ${TABLE}.date_past ;;
+    hidden: yes
+  }
+
+  dimension: id {
+    type: string
+    sql: ${customer_id}||${date_date} ;;
+    hidden: yes
+    primary_key: yes
   }
 
   parameter: interval {
