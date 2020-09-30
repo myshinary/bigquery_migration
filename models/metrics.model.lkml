@@ -28,4 +28,11 @@ explore: net_retention {
     relationship: many_to_one
     type: left_outer
   }
+
+  join: root_customer_net_retention_launch_filter {
+    sql_on: (${root_customer_net_retention.customer_id} = ${root_customer_net_retention_launch_filter.customer_id}
+      AND ${root_customer_net_retention.date_date} >= ${root_customer_net_retention_launch_filter.launched});;
+    relationship: many_to_many
+    type: inner
+  }
 }

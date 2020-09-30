@@ -76,7 +76,7 @@ view: root_customer_net_retention {
 
       SELECT date, date_interval, customer_id, mrr_segment_by_start, mrr_segment_by_max, start_mrr, end_mrr
       FROM find_start_and_end_mrr
-      WHERE date IN (SELECT date FROM find_date_frame)
+      WHERE date_interval IN (SELECT date_interval FROM find_date_frame)
       ;;
   }
 
@@ -92,6 +92,7 @@ view: root_customer_net_retention {
     sql: ${TABLE}.start_mrr ;;
     value_format: "$#,##0;($#,##0)"
     group_label: "MRR"
+    label: "Start MRR"
     #hidden: yes
   }
 
@@ -118,6 +119,7 @@ view: root_customer_net_retention {
     sql: ${TABLE}.end_mrr ;;
     value_format: "$#,##0;($#,##0)"
     group_label: "MRR"
+    label: "End MRR"
     hidden: yes
   }
 
@@ -125,7 +127,7 @@ view: root_customer_net_retention {
     label: "Net Dollar Retention"
     type: number
     sql: SUM(${end_mrr})/SUM(${start_mrr}) ;;
-    value_format: "0.00%"
+    value_format: "0.0%"
     drill_fields: [customers.name,customers.hub_customer_link,start_mrr,end_mrr,net_retention]
   }
 
