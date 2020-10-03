@@ -255,6 +255,13 @@ view: finance_normalized_line_items {
     hidden: no
   }
 
+  measure: product_list {
+    label: "Recurring Products"
+    type: string
+    sql: STRING_AGG(DISTINCT (CASE WHEN ${is_product_group_recurring} THEN ${product_group_name} ELSE NULL END),', ') ;;
+    group_label: "Finances"
+  }
+
   dimension: root_so_customer_id {
     type: number
     sql: ${TABLE}.root_so_customer_id ;;
