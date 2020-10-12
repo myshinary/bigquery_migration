@@ -170,8 +170,17 @@ view: property_provisioning_orders {
     drill_fields: [customer.name,property_name,activation_date,likely_first_invoice_date,cmrr]
   }
 
+  measure: un_billed_cmrr {
+    label: "Un-Billed CMRR"
+    type: sum
+    sql:  CASE WHEN ${likely_first_invoice_date} >= current_date AND ${is_provisioned} IS FALSE AND ${is_deprovisioned} IS FALSE THEN ${mrr_dimension} ELSE 0 END;;
+    group_label: "Finances"
+    value_format: "$#,##0;($#,##0)"
+    drill_fields: [customer.name,property_name,activation_date,likely_first_invoice_date,cmrr]
+  }
+
   measure: un_billed_launched_cmrr {
-    label: "Un Billed CMRR for Activated Properties"
+    label: "Un-Billed CMRR for Activated Properties"
     type: sum
     sql:  CASE WHEN ${likely_first_invoice_date} >= current_date AND ${is_provisioned} IS TRUE AND ${is_deprovisioned} IS FALSE THEN ${mrr_dimension} ELSE 0 END;;
     group_label: "Finances"
