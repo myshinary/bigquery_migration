@@ -197,7 +197,6 @@ explore: hub_customers {
     type: left_outer
   }
 
-
   join: finance_normalized_line_items {
     sql_on: ${customers.saasoptics_id} = ${finance_normalized_line_items.root_so_customer_id};;
     relationship: one_to_many
@@ -281,6 +280,13 @@ explore: hub_customers {
     relationship: one_to_many
     type: left_outer
   }
+
+  join: property_provisioning_orders {
+    sql_on: ${product_environments.id} = ${property_provisioning_orders.product_environment_id} ;;
+    relationship: one_to_many
+    type: left_outer
+  }
+
 
   #join: price_per_unit_by_product_environment {
   #  sql_on: (${product_environments.id} = ${price_per_unit_by_product_environment.product_environment_id} AND ${finance_normalized_line_items.product_group_name} = ${price_per_unit_by_product_environment.product_type}) ;;
