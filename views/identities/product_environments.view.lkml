@@ -66,15 +66,15 @@ view: product_environments {
   }
 
   dimension: happy_business_id {
-    label: "HappyCo Business ID"
+    label: "Product Environment ID"
     type: number
     sql: ${TABLE}.happy_business_id ;;
     hidden: no
-    group_label: "HappyCo"
+    group_label: "Product Environment"
   }
 
   measure: happy_business_ids {
-    label: "HappyCo Business IDs"
+    label: "Product Environment IDs"
     type: string
     sql: STRING_AGG(DISTINCT CAST(${happy_business_id} AS STRING),', ') ;;
   }
@@ -87,16 +87,16 @@ view: product_environments {
   dimension: happy_business_link {
     sql: ${happy_business_link_html} ;;
     html: <a href="{{ value }}" target="_blank">{{ happy_business_id }} <img src="https://storage.googleapis.com/happyco-downloadable-assets/bi/public/external-link.png" style=" width: 8px; height: 8px; display: inline-block;" /></a> ;;
-    label: "HappyCo Admin Link"
-    group_label: "HappyCo"
+    label: "Admin Link"
+    group_label: "Product Environment"
   }
 
   dimension: name {
     type: string
     sql: ${TABLE}.name ;;
-    label: "HappyCo Business Name"
+    label: "Product Environment Name"
     view_label: "Customer"
-    group_label: "HappyCo"
+    group_label: "Product Environment"
   }
 
   dimension_group: updated {

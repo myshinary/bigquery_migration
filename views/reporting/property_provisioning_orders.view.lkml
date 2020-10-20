@@ -171,7 +171,7 @@ view: property_provisioning_orders {
   }
 
   measure: un_billed_cmrr {
-    label: "Un-Billed CMRR"
+    label: "CMRR"
     type: sum
     sql:  CASE WHEN ${likely_first_invoice_date} >= current_date AND ${is_provisioned} IS FALSE AND ${is_deprovisioned} IS FALSE THEN ${mrr_dimension} ELSE 0 END;;
     group_label: "Finances"
@@ -180,7 +180,7 @@ view: property_provisioning_orders {
   }
 
   measure: un_billed_launched_cmrr {
-    label: "Un-Billed CMRR for Activated Properties"
+    label: "Activated CMRR"
     type: sum
     sql:  CASE WHEN ${likely_first_invoice_date} >= current_date AND ${is_provisioned} IS TRUE AND ${is_deprovisioned} IS FALSE THEN ${mrr_dimension} ELSE 0 END;;
     group_label: "Finances"
@@ -188,8 +188,21 @@ view: property_provisioning_orders {
     drill_fields: [customer.name,property_name,activation_date,likely_first_invoice_date,cmrr]
   }
 
-  #measure: count {
-  #  type: count
-  #  drill_fields: [id, property_name]
-  #}
+  measure: un_billed_properties {
+    label: "Un-Billed Properties"
+    type: sum
+    sql: CASE WHEN ${likely_first_invoice_date} >= current_date AND ${is_provisioned} IS FALSE AND ${is_deprovisioned} IS FALSE THEN 1 ELSE 0 END;;
+    drill_fields: [customer.name,property_name,activation_date,likely_first_invoice_date,cmrr]
+    view_label: "Customer"
+    group_label: "Activations"
+  }
+
+  measure: un_billed_activated_properties {
+    label: "Un-Billed Activated Properties"
+    type: sum
+    sql: CASE WHEN ${likely_first_invoice_date} >= current_date AND ${is_provisioned} IS TRUE AND ${is_deprovisioned} IS FALSE THEN 1 ELSE 0 END;;
+    drill_fields: [customer.name,property_name,activation_date,likely_first_invoice_date,cmrr]
+    view_label: "Customer"
+    group_label: "Activations"
+  }
 }

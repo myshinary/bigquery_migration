@@ -281,11 +281,12 @@ explore: hub_customers {
     type: left_outer
   }
 
-  join: property_provisioning_orders {
-    sql_on: ${product_environments.id} = ${property_provisioning_orders.product_environment_id} ;;
-    relationship: one_to_many
-    type: left_outer
-  }
+  #escaped to leave future billing out of HUB Customer Model
+  #join: property_provisioning_orders {
+  #  sql_on: ${product_environments.id} = ${property_provisioning_orders.product_environment_id} ;;
+  #  relationship: one_to_many
+  #  type: left_outer
+  #}
 
 
   #join: price_per_unit_by_product_environment {

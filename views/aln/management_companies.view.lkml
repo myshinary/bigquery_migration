@@ -14,6 +14,7 @@ view: management_companies {
   dimension: name {
     type: string
     sql: ${TABLE}.name ;;
+    case_sensitive: no
   }
 
   dimension: website {
