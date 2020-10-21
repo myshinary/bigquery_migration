@@ -297,3 +297,32 @@ explore: hub_customers {
   #}
 
 }
+
+explore: customer_updates {
+  from: customer_updates
+  view_name: customer_updates
+  label: "Updates"
+  #persist_for: "24 hour"
+
+  #sql_always_where: ${aln.apartments.status_id} != 15
+  #  ;;
+
+  join: customer_updates_tags {
+    sql_on: ${customer_updates.id} = ${customer_updates_tags.update_id};;
+    relationship: one_to_many
+    type: left_outer
+  }
+
+  join: customers {
+    sql_on: ${customer_updates.customer_id} = ${customers.id};;
+    relationship: many_to_one
+    type: left_outer
+  }
+
+  join: finance_normalized_line_items {
+    sql_on: ${customers.saasoptics_id} = ${finance_normalized_line_items.root_so_customer_id};;
+    relationship: one_to_many
+    type: left_outer
+    fields: [finance_normalized_line_items.current_mrr,finance_normalized_line_items.lifetime_value,finance_normalized_line_items.product_list]
+  }
+}
