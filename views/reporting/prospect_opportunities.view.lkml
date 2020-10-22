@@ -38,6 +38,7 @@ view: prospect_opportunities {
   }
 
   measure: cmrr {
+    label: "CMRR"
     type: sum
     sql: ${cmrr_cents};;
     value_format: "$#,##0;($#,##0)"
