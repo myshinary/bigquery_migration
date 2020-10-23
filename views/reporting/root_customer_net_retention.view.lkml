@@ -11,10 +11,15 @@ view: root_customer_net_retention {
       GROUP BY 1
       ),
 
-      date_arrays AS (
-      SELECT root_so_customer_id, start_date, end_date, GENERATE_DATE_ARRAY(start_date, end_date, INTERVAL 1 DAY) as dates
-      --FROM net_customer_list
+      account_for_churn AS (
+      SELECT root_so_customer_id, start_date, end_date, CASE WHEN end_date < current_date THEN (CASE WHEN DATE_ADD(end_date,INTERVAL 1 YEAR) > current_date THEN current_date ELSE DATE_ADD(end_date,INTERVAL 1 YEAR) END) ELSE end_date END as date_range_end
       FROM customer_active_dates
+      ),
+
+      date_arrays AS (
+      SELECT root_so_customer_id, start_date, end_date, GENERATE_DATE_ARRAY(start_date, date_range_end, INTERVAL 1 DAY) as dates
+      --FROM net_customer_list
+      FROM account_for_churn
       ),
 
       unnest_date_arrays AS (
@@ -74,7 +79,7 @@ view: root_customer_net_retention {
       GROUP BY 1
       )
 
-      SELECT date, date_past, date_interval, customer_id, mrr_segment_by_start, mrr_segment_by_max, start_mrr, end_mrr
+      SELECT date, date_past, date_interval, customer_id, mrr_segment_by_start, mrr_segment_by_max, start_mrr, COALESCE(end_mrr,0) as end_mrr, CASE WHEN end_mrr IS NULL THEN TRUE ELSE FALSE END as churned
       FROM find_start_and_end_mrr
       WHERE date_interval IN (SELECT date_interval FROM find_date_frame)
       AND
@@ -223,6 +228,11 @@ view: root_customer_net_retention {
       label: "Subscription"
       value: "DD Subscription"
     }
+  }
+
+  dimension: churned {
+    type: yesno
+    sql: ${TABLE}.churned ;;
   }
 
 }

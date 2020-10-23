@@ -13,11 +13,13 @@ view_label: "Customer"
       ),
 
       date_arrays AS (
-      SELECT customer_id, GENERATE_DATE_ARRAY(start_date, end_date, INTERVAL 1 MONTH) as months
+      SELECT customer_id, GENERATE_DATE_ARRAY(start_date, date_range_end, INTERVAL 1 MONTH) as months
+      FROM
+      (SELECT customer_id, start_date, end_date, CASE WHEN end_date < current_date THEN (CASE WHEN DATE_ADD(end_date,INTERVAL 1 YEAR) > current_date THEN current_date ELSE DATE_ADD(end_date,INTERVAL 1 YEAR) END) ELSE end_date END as date_range_end
       FROM
       (SELECT customer_id, CAST(current_date AS DATE) as end_date, MIN(activated_month) as start_date
       FROM full_list
-      GROUP BY 1,2) x
+      GROUP BY 1,2) x) x2
       ),
 
       unnest_date_arrays AS (
