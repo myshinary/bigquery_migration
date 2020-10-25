@@ -44,3 +44,21 @@ explore: prospect_opportunities {
   }
 
 }
+
+explore: prospect_historical_opportunities {
+  from: prospect_daily_pipeline_data
+  view_name: prospect_daily_pipeline_data
+  label: "Historical Opportunities"
+  #persist_for: "24 hour"
+
+  #sql_always_where: ${aln.apartments.status_id} != 15
+  #  ;;
+
+
+  join: customers {
+    sql_on: ${prospect_daily_pipeline_data.account_id} = ${customers.salesforce_id} ;;
+    relationship: many_to_one
+    type: left_outer
+  }
+
+}
