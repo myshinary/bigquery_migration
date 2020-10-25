@@ -97,6 +97,14 @@ view: prospect_daily_pipeline_data {
     group_label: "Booking Values"
   }
 
+  measure: avg_cmrr {
+    label: "Average CMRR"
+    type: average_distinct
+    sql: CASE WHEN ${cmrr_cents} IS NOT NULL THEN ${cmrr_cents}/100 ELSE NULL END;;
+    sql_distinct_key: ${opportunity_id} ;;
+    value_format: "$0.00"
+  }
+
   dimension: lost_reason {
     type: string
     sql: ${TABLE}.lost_reason ;;
