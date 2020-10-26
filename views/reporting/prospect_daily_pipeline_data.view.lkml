@@ -185,7 +185,6 @@ view: prospect_daily_pipeline_data {
   dimension: probability {
     type: number
     sql: ${TABLE}.probability ;;
-    hidden: yes
   }
 
   dimension: stage_name {

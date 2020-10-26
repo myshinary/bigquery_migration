@@ -54,6 +54,11 @@ explore: prospect_historical_opportunities {
   #sql_always_where: ${aln.apartments.status_id} != 15
   #  ;;
 
+  join: prospect_opportunities {
+    sql_on: ${prospect_daily_pipeline_data.opportunity_id} = ${prospect_opportunities.opportunity_id} ;;
+    relationship: many_to_one
+    type: inner
+  }
 
   join: customers {
     sql_on: ${prospect_daily_pipeline_data.account_id} = ${customers.salesforce_id} ;;
