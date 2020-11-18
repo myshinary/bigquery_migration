@@ -81,6 +81,7 @@ view: prospect_daily_pipeline_data {
     convert_tz: no
     datatype: date
     sql: ${TABLE}.close_date ;;
+    hidden: yes
   }
 
   dimension: cmrr_cents {
@@ -108,6 +109,7 @@ view: prospect_daily_pipeline_data {
   dimension: lost_reason {
     type: string
     sql: ${TABLE}.lost_reason ;;
+    hidden: yes
   }
 
   dimension: modified_by_name {
@@ -143,6 +145,7 @@ view: prospect_daily_pipeline_data {
     convert_tz: no
     datatype: date
     sql: ${TABLE}.opportunity_created_on ;;
+    hidden: yes
   }
 
   dimension: opportunity_id {
@@ -154,11 +157,13 @@ view: prospect_daily_pipeline_data {
   dimension: opportunity_tier {
     type: string
     sql: ${TABLE}.opportunity_tier ;;
+    hidden: yes
   }
 
   dimension: opportunity_type {
     type: string
     sql: ${TABLE}.opportunity_type ;;
+    hidden: yes
   }
 
   dimension: owner_name {
@@ -187,29 +192,46 @@ view: prospect_daily_pipeline_data {
     sql: ${TABLE}.probability ;;
   }
 
-  dimension: stage_name {
-    type: string
-    sql: ${TABLE}.stage_name ;;
-    hidden: yes
-  }
-
-  dimension: stage {
+  dimension: stage_order {
     type: string
     sql:
       CASE
-        WHEN ${stage_name} = 'Sales Qualified' THEN '1. Sales Qualified'
-        WHEN ${stage_name} = 'Discovery' THEN '2. Discovery'
-        WHEN ${stage_name} = 'Pricing/Proposal' THEN '3. Pricing/Proposal'
-        WHEN ${stage_name} = 'Contract Delivered' THEN '4. Contract Delivered'
-        WHEN ${stage_name} = 'Launch & Activation' THEN '5. Launch & Activation'
-        WHEN ${stage_name} = 'Closed Won' THEN '6. Closed Won'
-        ELSE ${stage_name} END
+        WHEN ${stage_name} = 'Sales Qualified' THEN 1
+        WHEN ${stage_name} = 'Discovery' THEN 2
+        WHEN ${stage_name} = 'Pricing/Proposal' THEN 3
+        WHEN ${stage_name} = 'Contract Delivered' THEN 4
+        WHEN ${stage_name} = 'Launch & Activation' THEN 5
+        WHEN ${stage_name} = 'Closed Won' THEN 6
+        ELSE 0 END
         ;;
+        hidden: yes
   }
+
+  dimension: stage_name {
+    label: "Stage"
+    type: string
+    sql: ${TABLE}.stage_name ;;
+    order_by_field: stage_order
+  }
+
+  #dimension: stage {
+  #  type: string
+  #  sql:
+  #    CASE
+  #      WHEN ${stage_name} = 'Sales Qualified' THEN '1. Sales Qualified'
+  #      WHEN ${stage_name} = 'Discovery' THEN '2. Discovery'
+  #      WHEN ${stage_name} = 'Pricing/Proposal' THEN '3. Pricing/Proposal'
+  #      WHEN ${stage_name} = 'Contract Delivered' THEN '4. Contract Delivered'
+  #      WHEN ${stage_name} = 'Launch & Activation' THEN '5. Launch & Activation'
+  #      WHEN ${stage_name} = 'Closed Won' THEN '6. Closed Won'
+  #      ELSE ${stage_name} END
+  #      ;;
+  #}
 
   dimension: tier_source {
     type: string
     sql: ${TABLE}.tier_source ;;
+    hidden: yes
   }
 
   measure: count {
@@ -218,8 +240,8 @@ view: prospect_daily_pipeline_data {
     hidden: yes
   }
 
-  measure: number_of_distinct_opportunities {
-    type: count_distinct
-    sql: ${opportunity_id} ;;
-  }
+  #measure: number_of_distinct_opportunities {
+  #  type: count_distinct
+  #  sql: ${opportunity_id} ;;
+  #}
 }
