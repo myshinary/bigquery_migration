@@ -88,14 +88,14 @@ view: product_environment_nps_responses {
 
   measure: promoter_percent {
     type: number
-    sql: SUM(CASE WHEN ${answer} > 8 THEN 1 ELSE 0 END) / ${count} ;;
+    sql: SUM(CASE WHEN ${answer} > 8 THEN 1 ELSE 0 END) / NULLIF(${count},0) ;;
     group_label: "NPS"
     value_format: "0.0%"
   }
 
   measure: detractor_percent {
     type: number
-    sql: SUM(CASE WHEN ${answer} < 7 THEN 1 ELSE 0 END) / ${count} ;;
+    sql: SUM(CASE WHEN ${answer} < 7 THEN 1 ELSE 0 END) / NULLIF(${count},0) ;;
     group_label: "NPS"
     value_format: "0.0%"
   }
@@ -105,7 +105,7 @@ view: product_environment_nps_responses {
     type: number
     sql: ROUND((${promoter_percent} - ${detractor_percent}) * 100, 2) ;;
     group_label: "NPS"
-    value_format: "0.#"
+    value_format: "0.0"
   }
 
   measure: count {
