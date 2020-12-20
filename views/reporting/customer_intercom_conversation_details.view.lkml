@@ -122,7 +122,8 @@ view: customer_intercom_conversation_details {
     hidden: yes
   }
   measure: csat_score {
-    label: "CSAT Score"
+    label: "CSAT Score (Conversation Start)"
+    description: "The CSAT score is calculated based on the date the conversation started."
     type: number
     value_format_name: percent_2
     sql: ${count_of_conversations_positive_ratings} / ${count_of_conversations_with_ratings} ;;
