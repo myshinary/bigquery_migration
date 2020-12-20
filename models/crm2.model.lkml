@@ -233,6 +233,12 @@ explore: hub_customers {
     type: left_outer
   }
 
+  join: customer_intercom_conversation_details {
+    sql_on: ${customer_ancestry.id} = ${customer_intercom_conversation_details.customer_id} ;;
+    relationship: one_to_many
+    type: left_outer
+  }
+
   join: due_diligence_fullfilled_orders {
     sql_on: ${product_environments.id} = ${due_diligence_fullfilled_orders.product_environment_id} ;;
     relationship: one_to_many
