@@ -104,7 +104,7 @@ view: customer_intercom_conversation_details {
   measure: count {
     type: count_distinct
     sql: ${conversation_id} ;;
-    # drill_fields: [conversation_id]
+    drill_fields: [intercom_link,happy_user_id,user_email,conversation_status]
     # group_label: "Intercom Conversations"
     label: "Number of Conversations"
   }
