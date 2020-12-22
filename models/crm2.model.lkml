@@ -203,6 +203,12 @@ explore: hub_customers {
     type: left_outer
   }
 
+  join: customer_service_agreements {
+    sql_on: ${customers.id} = ${customer_service_agreements.customer_id} ;;
+    relationship: one_to_many
+    type: left_outer
+  }
+
   join: finance_normalized_line_items {
     sql_on: ${customers.saasoptics_id} = ${finance_normalized_line_items.root_so_customer_id};;
     relationship: one_to_many
