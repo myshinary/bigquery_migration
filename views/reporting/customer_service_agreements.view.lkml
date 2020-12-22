@@ -58,7 +58,7 @@ view: customer_service_agreements {
     convert_tz: no
     datatype: date
     sql: ${TABLE}.contract_issue_date ;;
-    group_label: "Service Agreement"
+    label: "Service Agreement: Contract Issue"
   }
 
   dimension: customer_id {
@@ -86,7 +86,8 @@ view: customer_service_agreements {
     convert_tz: no
     datatype: date
     sql: ${TABLE}.launch_end_date ;;
-    group_label: "Service Agreement"
+    label: "Service Agreement: Launch End"
+    description: "Launch Period End Date"
   }
 
   dimension_group: launch_start {
@@ -102,7 +103,7 @@ view: customer_service_agreements {
     convert_tz: no
     datatype: date
     sql: ${TABLE}.launch_start_date ;;
-    group_label: "Service Agreement"
+    label: "Service Agreement: Launch Start"
   }
 
   dimension: oneoff_amount_cents {
@@ -131,6 +132,26 @@ view: customer_service_agreements {
     datatype: date
     sql: ${TABLE}.opportunity_close_date ;;
     hidden: yes
+    #should stay hidden and fully activated on should be un hidden instead
+    description: "Launch Completion Date"
+  }
+
+  dimension_group: fully_activated_on {
+    type: time
+    timeframes: [
+      raw,
+      date,
+      week,
+      month,
+      quarter,
+      year
+    ]
+    convert_tz: no
+    datatype: date
+    sql: CASE WHEN ${launch_end_date} > ${opportunity_close_date} THEN ${launch_end_date} ELSE ${opportunity_close_date} END;;
+    #find highest date between launch to protect against lack of checks and balances from salesforce sourced opp close date
+    hidden: yes
+    description: "Launch Completion Date"
   }
 
   dimension: recurring_products {
@@ -192,7 +213,7 @@ view: customer_service_agreements {
     convert_tz: no
     datatype: date
     sql: ${TABLE}.subscription_start_date ;;
-    group_label: "Service Agreement"
+    label: "Service Agreement: Subscription Start"
   }
 
   dimension: transactional_products {
@@ -211,7 +232,7 @@ view: customer_service_agreements {
     label: "CMRR"
     type: sum
     sql: ${cmrr_dimension} ;;
-    value_format: "$#.00;($#.00)"
+    value_format: "$#,##0;($#,##0)"
     group_label: "Service Agreement"
   }
 
@@ -221,15 +242,15 @@ view: customer_service_agreements {
     type: sum
     sql: ${cmrr_dimension} ;;
     filters: [in_launch: "yes"]
-    value_format: "$#.00;($#.00)"
+    value_format: "$#,##0;($#,##0)"
     group_label: "Service Agreement"
   }
 
   measure: oneoff_amount {
-    label: "Oneoff Amount"
+    label: "One-Off Amount"
     type: sum
     sql: ${oneoff_amount_dimension} ;;
-    value_format: "$#.00;($#.00)"
+    value_format: "$#,##0;($#,##0)"
     group_label: "Service Agreement"
   }
 

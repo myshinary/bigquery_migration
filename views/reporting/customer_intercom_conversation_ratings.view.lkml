@@ -2,7 +2,7 @@ view: customer_intercom_conversation_ratings {
   sql_table_name: `happyco-internal-systems.hub__reporting.customer_intercom_conversation_ratings`
     ;;
   drill_fields: [id]
-  view_label: "Customer Support"
+  view_label: "Account Management"
 
   dimension: id {
     primary_key: yes
@@ -54,5 +54,6 @@ view: customer_intercom_conversation_ratings {
     type: number
     value_format_name: percent_2
     sql: ${count_of_conversations_positive_ratings} / ${count_of_conversations_with_ratings} ;;
+    group_label: "Intercom"
   }
 }

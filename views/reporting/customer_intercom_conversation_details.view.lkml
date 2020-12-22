@@ -2,7 +2,7 @@ view: customer_intercom_conversation_details {
   sql_table_name: `happyco-internal-systems.hub__reporting.customer_intercom_conversation_details`
     ;;
   drill_fields: [id]
-  view_label: "Customer Support"
+  view_label: "Account Management"
 
   dimension: id {
     primary_key: yes
@@ -27,7 +27,7 @@ view: customer_intercom_conversation_details {
     type: string
     sql: ${TABLE}.conversation_id ;;
     html: <a href="https://app.intercom.com/a/apps/yaqkh6zy/inbox/inbox/conversation/{{ value }}" target="_blank">{{ value }} <img src="https://storage.googleapis.com/happyco-downloadable-assets/bi/public/external-link.png" style=" width: 8px; height: 8px; display: inline-block;" /></a> ;;
-    group_label: "Intercom Conversations"
+    group_label: "Intercom"
   }
 
   dimension_group: conversation_last_message {
@@ -55,14 +55,14 @@ view: customer_intercom_conversation_details {
       year
     ]
     sql: CAST(${TABLE}.conversation_started_at AS TIMESTAMP) ;;
-    group_label: "Intercom Conversations"
+    label: "Intercom: Conversations Started"
   }
 
 
   dimension: conversation_status {
     type: string
     sql: ${TABLE}.conversation_status ;;
-    group_label: "Intercom Conversations"
+    group_label: "Intercom"
   }
 
   dimension: customer_id {
@@ -80,7 +80,7 @@ view: customer_intercom_conversation_details {
   dimension: happy_user_id {
     type: number
     sql: ${TABLE}.happy_user_id ;;
-    group_label: "Intercom Conversations"
+    group_label: "Intercom"
   }
 
   dimension: product_environment_id {
@@ -92,13 +92,13 @@ view: customer_intercom_conversation_details {
   dimension: rating {
     type: number
     sql: ${TABLE}.rating ;;
-    group_label: "Intercom Conversations"
+    group_label: "Intercom"
   }
 
   dimension: user_email {
     type: string
     sql: ${TABLE}.user_email ;;
-    group_label: "Intercom Conversations"
+    group_label: "Intercom"
   }
 
   measure: count {
@@ -107,6 +107,7 @@ view: customer_intercom_conversation_details {
     drill_fields: [intercom_link,happy_user_id,user_email,conversation_status]
     # group_label: "Intercom Conversations"
     label: "Number of Conversations"
+    group_label: "Intercom"
   }
 
   measure: count_of_conversations_positive_ratings {
@@ -127,5 +128,6 @@ view: customer_intercom_conversation_details {
     type: number
     value_format_name: percent_2
     sql: ${count_of_conversations_positive_ratings} / ${count_of_conversations_with_ratings} ;;
+    group_label: "Intercom"
   }
 }
