@@ -39,6 +39,12 @@ view: customer_current_overall_risks {
     hidden: yes
   }
 
+  dimension: cmrr_at_risk_dimension {
+    type: number
+    sql: ${overall_risk}*${customer_service_agreements.in_launch_cmrr_dimension}/100 ;;
+    hidden: yes
+  }
+
   measure: mrr_at_risk {
     type: sum_distinct
     sql_distinct_key: ${customer_id} ;;
@@ -46,6 +52,17 @@ view: customer_current_overall_risks {
     description: "Current MRR * (Risk Score as a percentage). Ex. $1,000 with a risk score of 90 will have $900 MRR at Risk."
     value_format: "$#,##0;($#,##0)"
     label: "MRR at Risk"
+    group_label: "CS"
+    drill_fields: [customers.parent,overall_risk,customers.hub_customer_link,mrr_at_risk,fnli_current_mrr_by_root_so_customer.current_mrr_by_parent,customer_owners.empoyee_names]
+  }
+
+  measure: cmrr_at_risk {
+    type: sum_distinct
+    sql_distinct_key: ${customer_service_agreements.id} ;;
+    sql: ${cmrr_at_risk_dimension};;
+    description: "Current CMRR * (Risk Score as a percentage) for Opportunities In Launch. Ex. $1,000 with a risk score of 90 will have $900 MRR at Risk."
+    value_format: "$#,##0;($#,##0)"
+    label: "CMRR at Risk"
     group_label: "CS"
     drill_fields: [customers.parent,overall_risk,customers.hub_customer_link,mrr_at_risk,fnli_current_mrr_by_root_so_customer.current_mrr_by_parent,customer_owners.empoyee_names]
   }

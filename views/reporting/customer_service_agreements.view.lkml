@@ -23,6 +23,12 @@ view: customer_service_agreements {
     hidden: yes
   }
 
+  dimension: in_launch_cmrr_dimension {
+    type: number
+    sql: CASE WHEN ${in_launch} IS TRUE THEN ${cmrr_dimension}  ELSE NULL END;;
+    hidden: yes
+  }
+
   dimension_group: contract_expiry {
     type: time
     timeframes: [
