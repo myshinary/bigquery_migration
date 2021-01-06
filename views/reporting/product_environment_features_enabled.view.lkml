@@ -70,7 +70,7 @@ derived_table: {
   }
 
   dimension: enabled  {
-    type: string
+    type: yesno
     sql: ${TABLE}.enabled;;
     group_label: "Features Enabled"
   }
