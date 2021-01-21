@@ -99,6 +99,12 @@ view: product_environments {
     group_label: "Product Environment"
   }
 
+  measure: happy_business_names {
+    label: "Product Environment Names"
+    type: string
+    sql: STRING_AGG(DISTINCT CAST(${name} AS STRING),', ') ;;
+  }
+
   dimension_group: updated {
     type: time
     timeframes: [
@@ -116,7 +122,8 @@ view: product_environments {
 
   measure: count {
     type: count
-    drill_fields: [id, name, orders.count, sales_order_line_items.count]
-    hidden: yes
+    #drill_fields: [id, name, orders.count, sales_order_line_items.count]
+    hidden: no
+    label: "Product Environments"
   }
 }
