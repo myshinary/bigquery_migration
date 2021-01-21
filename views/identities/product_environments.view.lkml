@@ -77,6 +77,7 @@ view: product_environments {
     label: "Product Environment IDs"
     type: string
     sql: STRING_AGG(DISTINCT CAST(${happy_business_id} AS STRING),', ') ;;
+    group_label: "Product Environment"
   }
 
   dimension: happy_business_link_html {
@@ -103,6 +104,7 @@ view: product_environments {
     label: "Product Environment Names"
     type: string
     sql: STRING_AGG(DISTINCT CAST(${name} AS STRING),', ') ;;
+    group_label: "Product Environment"
   }
 
   dimension_group: updated {
@@ -124,6 +126,7 @@ view: product_environments {
     type: count
     #drill_fields: [id, name, orders.count, sales_order_line_items.count]
     hidden: no
-    label: "Product Environments"
+    label: "Product Environment Count"
+    group_label: "Product Environment"
   }
 }
