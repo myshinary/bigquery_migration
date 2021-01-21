@@ -66,4 +66,10 @@ view: customer_ancestry {
     sql: ${TABLE}.updated_at ;;
     hidden: yes
   }
+
+  dimension: power_of_one {
+    type: number
+    sql: 1 ;;
+    description: "This provides a common value to easily to merge queries on customer measures"
+  }
 }
