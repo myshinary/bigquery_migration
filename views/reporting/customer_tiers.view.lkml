@@ -37,6 +37,12 @@ view: customer_tiers {
     sql: ${TABLE}.tier ;;
   }
 
+  dimension: max_tier {
+    type: string
+    sql:  ${TABLE}.max_tier ;;
+  }
+
+
   dimension_group: updated {
     type: time
     timeframes: [
