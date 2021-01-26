@@ -15,7 +15,7 @@ view: properties_order_line_items {
 
   dimension: mrr_dimension {
     type: number
-    sql: CASE WHEN ${is_recurring} IS TRUE THEN ${TABLE}.amount_cents/1200  ELSE NULL END;;
+    sql: CASE WHEN ${is_recurring} IS TRUE AND ${property_provisioning_plans.effective_until_date} IS NULL THEN ${TABLE}.amount_cents/1200  ELSE NULL END;;
     hidden: yes
   }
 

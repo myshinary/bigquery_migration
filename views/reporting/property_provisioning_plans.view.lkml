@@ -124,6 +124,12 @@ view: property_provisioning_plans {
     hidden: yes
   }
 
+  #dimension: active {
+  #  type: yesno
+  #  sql: CASE WHEN current_date() BETWEEN ${effective_date} AND ${effective_until_date} THEN TRUE ELSE FALSE END ;;
+  #  hidden: yes
+  #}
+
   dimension_group: launch_period_ends {
     type: time
     timeframes: [

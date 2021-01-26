@@ -178,6 +178,12 @@ explore: segmentation {
     type: left_outer
   }
 
+  # join: management_company_state_presense {
+  #   sql_on: ${management_companies.id} = ${management_company_state_presense.management_company_id} ;;
+  #   relationship: one_to_one
+  #   type: left_outer
+  # }
+
 }
 
 explore: hub_customers {
