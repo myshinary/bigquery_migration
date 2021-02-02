@@ -135,7 +135,7 @@ view: properties {
   dimension: is_happyco_customer {
     label: "HappyCo Customer?"
     type: yesno
-    sql: CASE WHEN ${orders.product_environment_id} IS NULL THEN FALSE ELSE TRUE END ;;
+    sql: CASE WHEN (${orders.product_environment_id} IS NULL OR ${orders.deactivated_date} IS NOT NULL) THEN FALSE ELSE TRUE END ;;
   }
 
   dimension: exists_in_aln {
