@@ -249,6 +249,13 @@ view: orders {
     #group_label: "Revenue"
   }
 
+  measure: active_units {
+    type: sum
+    sql: CASE WHEN ${deactivated_date} IS NULL THEN ${unit_quantity} ELSE NULL END;;
+    #group_label: "Revenue"
+    description: "Units Ordered that have not been deactivated"
+  }
+
   dimension_group: updated {
     type: time
     timeframes: [
