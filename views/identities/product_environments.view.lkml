@@ -100,6 +100,14 @@ view: product_environments {
     group_label: "Product Environment"
   }
 
+  dimension: server_environment {
+    type: string
+    sql: ${TABLE}.environment ;;
+    view_label: "Customer"
+    group_label: "Product Environment"
+    hidden: yes
+  }
+
   measure: happy_business_names {
     label: "Product Environment Names"
     type: string
