@@ -3,7 +3,7 @@ view: product_environment_thinkific_enrollments {
     ;;
   drill_fields: [id]
 
-  view_label: "Thinkific"
+  view_label: "HappyCo U"
 
   dimension: id {
     primary_key: yes

@@ -366,7 +366,7 @@ explore: customer_updates {
 explore: thinkific_adoption {
   from:  product_environments
   view_name: product_environments
-  label: "Thinkific Adoption"
+  label: "HappyCo U Adoption"
 
   join: product_environment_active_counts {
     sql_on: ${product_environments.id} = ${product_environment_active_counts.product_environment_id};;
