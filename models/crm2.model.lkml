@@ -178,6 +178,12 @@ explore: segmentation {
     type: left_outer
   }
 
+  join: contacts_property_managers {
+    sql_on: ${apartments.id} = ${contacts_property_managers.associated_entity_id} ;;
+    relationship: one_to_many
+    type: left_outer
+  }
+
   # join: management_company_state_presense {
   #   sql_on: ${management_companies.id} = ${management_company_state_presense.management_company_id} ;;
   #   relationship: one_to_one
