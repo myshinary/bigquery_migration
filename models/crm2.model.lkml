@@ -368,3 +368,51 @@ explore: customer_updates {
     fields: [finance_normalized_line_items.current_mrr,finance_normalized_line_items.lifetime_value,finance_normalized_line_items.product_list]
   }
 }
+
+explore: thinkific_adoption {
+  from:  product_environments
+  view_name: product_environments
+  label: "HappyCo U Adoption"
+
+  join: product_environment_active_counts {
+    sql_on: ${product_environments.id} = ${product_environment_active_counts.product_environment_id};;
+    relationship: one_to_one
+    type: inner
+  }
+
+  join: product_environment_thinkific_enrollments {
+    sql_on: ${product_environments.id} = ${product_environment_thinkific_enrollments.product_environment_id};;
+    relationship: one_to_many
+    type: left_outer
+  }
+
+  join: customer_ancestry {
+    sql_on: ${product_environments.customer_id} = ${customer_ancestry.id};;
+    relationship: many_to_one
+    type: left_outer
+  }
+
+  join: customers {
+    sql_on: ${customer_ancestry.root_id} = ${customers.id};;
+    relationship: many_to_one
+    type: left_outer
+  }
+
+  join: customer_tiers {
+    sql_on: ${customers.id} = ${customer_tiers.root_customer_id} ;;
+    relationship: one_to_one
+    type: left_outer
+  }
+
+  join: finance_normalized_line_items {
+    sql_on: ${customers.saasoptics_id} = ${finance_normalized_line_items.root_so_customer_id};;
+    relationship: one_to_many
+    type: left_outer
+  }
+
+  join: customer_owners {
+    sql_on: ${customers.id} = ${customer_owners.customer_id};;
+    relationship: one_to_many
+    type: left_outer
+  }
+}
