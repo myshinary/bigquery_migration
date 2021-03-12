@@ -24,7 +24,7 @@ view: property_provisioning_orders {
     convert_tz: no
     datatype: date
     sql: ${TABLE}.activation_date ;;
-    hidden: yes
+    hidden: no
   }
 
   dimension: active_recurring_product_names {
@@ -161,48 +161,55 @@ view: property_provisioning_orders {
     hidden: yes
   }
 
-  measure: cmrr {
-    label: "CMRR"
-    type: sum
-    sql:  ${mrr_dimension};;
-    group_label: "Finances"
-    value_format: "$#,##0;($#,##0)"
-    drill_fields: [customer.name,property_name,activation_date,likely_first_invoice_date,cmrr]
-  }
+  measure: mrr {
+      label: "MRR"
+      type: sum
+      sql:  ${mrr_dimension};;
+      value_format: "$#,##0;($#,##0)"
+    }
 
-  measure: un_billed_cmrr {
-    label: "CMRR"
-    type: sum
-    sql:  CASE WHEN ${likely_first_invoice_date} >= current_date AND ${is_provisioned} IS FALSE AND ${is_deprovisioned} IS FALSE THEN ${mrr_dimension} ELSE 0 END;;
-    group_label: "Finances"
-    value_format: "$#,##0;($#,##0)"
-    drill_fields: [customer.name,property_name,activation_date,likely_first_invoice_date,cmrr]
-  }
+  # measure: cmrr {
+  #   label: "CMRR"
+  #   type: sum
+  #   sql:  ${mrr_dimension};;
+  #   group_label: "Finances"
+  #   value_format: "$#,##0;($#,##0)"
+  #   drill_fields: [customer.name,property_name,activation_date,likely_first_invoice_date,cmrr]
+  # }
 
-  measure: un_billed_launched_cmrr {
-    label: "Activated CMRR"
-    type: sum
-    sql:  CASE WHEN ${likely_first_invoice_date} >= current_date AND ${is_provisioned} IS TRUE AND ${is_deprovisioned} IS FALSE THEN ${mrr_dimension} ELSE 0 END;;
-    group_label: "Finances"
-    value_format: "$#,##0;($#,##0)"
-    drill_fields: [customer.name,property_name,activation_date,likely_first_invoice_date,cmrr]
-  }
+  # measure: un_billed_cmrr {
+  #   label: "CMRR"
+  #   type: sum
+  #   sql:  CASE WHEN ${likely_first_invoice_date} >= current_date AND ${is_provisioned} IS FALSE AND ${is_deprovisioned} IS FALSE THEN ${mrr_dimension} ELSE 0 END;;
+  #   group_label: "Finances"
+  #   value_format: "$#,##0;($#,##0)"
+  #   drill_fields: [customer.name,property_name,activation_date,likely_first_invoice_date,cmrr]
+  # }
 
-  measure: un_billed_properties {
-    label: "Un-Billed Properties"
-    type: sum
-    sql: CASE WHEN ${likely_first_invoice_date} >= current_date AND ${is_provisioned} IS FALSE AND ${is_deprovisioned} IS FALSE THEN 1 ELSE 0 END;;
-    drill_fields: [customer.name,property_name,activation_date,likely_first_invoice_date,cmrr]
-    view_label: "Customer"
-    group_label: "Activations"
-  }
+  # measure: un_billed_launched_cmrr {
+  #   label: "Activated CMRR"
+  #   type: sum
+  #   sql:  CASE WHEN ${likely_first_invoice_date} >= current_date AND ${is_provisioned} IS TRUE AND ${is_deprovisioned} IS FALSE THEN ${mrr_dimension} ELSE 0 END;;
+  #   group_label: "Finances"
+  #   value_format: "$#,##0;($#,##0)"
+  #   drill_fields: [customer.name,property_name,activation_date,likely_first_invoice_date,cmrr]
+  # }
 
-  measure: un_billed_activated_properties {
-    label: "Un-Billed Activated Properties"
-    type: sum
-    sql: CASE WHEN ${likely_first_invoice_date} >= current_date AND ${is_provisioned} IS TRUE AND ${is_deprovisioned} IS FALSE THEN 1 ELSE 0 END;;
-    drill_fields: [customer.name,property_name,activation_date,likely_first_invoice_date,cmrr]
-    view_label: "Customer"
-    group_label: "Activations"
-  }
+  # measure: un_billed_properties {
+  #   label: "Un-Billed Properties"
+  #   type: sum
+  #   sql: CASE WHEN ${likely_first_invoice_date} >= current_date AND ${is_provisioned} IS FALSE AND ${is_deprovisioned} IS FALSE THEN 1 ELSE 0 END;;
+  #   drill_fields: [customer.name,property_name,activation_date,likely_first_invoice_date,cmrr]
+  #   view_label: "Customer"
+  #   group_label: "Activations"
+  # }
+
+  # measure: un_billed_activated_properties {
+  #   label: "Un-Billed Activated Properties"
+  #   type: sum
+  #   sql: CASE WHEN ${likely_first_invoice_date} >= current_date AND ${is_provisioned} IS TRUE AND ${is_deprovisioned} IS FALSE THEN 1 ELSE 0 END;;
+  #   drill_fields: [customer.name,property_name,activation_date,likely_first_invoice_date,cmrr]
+  #   view_label: "Customer"
+  #   group_label: "Activations"
+  # }
 }

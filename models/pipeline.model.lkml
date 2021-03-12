@@ -10,6 +10,19 @@ include: "/views/property_provisioning/*.lkml"
 include: "/views/orders/*.lkml"
 include: "/views/reporting/*.lkml"
 
+explore: launch_activation {
+  from: property_provisioning_orders
+  view_name: property_provisioning_orders
+  label: "Launch Activation"
+  #description: "Which customers have what product(s), how much do they pay, who's assigned to their account(s), and what have they been tagged with"
+  fields: [ALL_FIELDS*]
+
+  #sql_always_where: ${aln.apartments.status_id} != 15
+  #  ;;
+
+}
+
+
 #explore: prospect_opportunities {
 #  from: prospect_opportunities
 #  view_name: prospect_opportunities
